@@ -1,0 +1,39 @@
+{
+  "name": "fieldledger-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "functions",
+    "apps/*",
+    "seo"
+  ],
+  "scripts": {
+    "build:core": "npm --prefix packages/backend-core run build",
+    "test:core": "npm --prefix packages/backend-core test",
+    "build:functions": "npm --prefix functions run build",
+    "build:fieldledger": "npm --prefix apps/fieldledger run build",
+    "build:website": "npm --prefix apps/website run build",
+    "build:all": "npm run build:core && npm run build:functions && node scripts/build_all.js",
+    "dev:fieldledger": "npm --prefix apps/fieldledger run dev",
+    "dev:website": "npm --prefix apps/website run dev",
+    "seo:gsc": "npm --prefix seo run fetch:gsc",
+    "seo:audit": "npm --prefix seo run audit",
+    "build": "npm run build:all",
+    "test": "npm run test:core",
+    "audit:release": "npm run audit:manifest && node scripts/release_audit.mjs",
+    "verify": "npm test && npm run build:all && npm run audit:release",
+    "test:rules": "node scripts/test-rules.mjs",
+    "test:functions": "npm --prefix functions test",
+    "test:e2e": "node scripts/test-e2e.mjs",
+    "test:e2e:authenticated": "node scripts/test-authenticated.mjs",
+    "verify:local-candidate": "node scripts/verify-local-candidate.mjs",
+    "evidence:local-candidate": "node scripts/record-candidate-evidence.mjs",
+    "audit:manifest": "node ../policy-verification/audit-release-manifest.mjs",
+    "verify:evidence": "node ../policy-verification/record-release-evidence.mjs"
+  },
+  "devDependencies": {
+    "firebase-tools": "^15.28.1",
+    "typescript": "^5.4.5"
+  }
+}

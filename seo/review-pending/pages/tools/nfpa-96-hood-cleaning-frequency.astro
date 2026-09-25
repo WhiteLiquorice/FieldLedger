@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { HoodFrequencyLookup } from '../../components/tools/HoodFrequencyLookup';
+
+const title = "NFPA 96 Hood Cleaning Frequency Matrix & Lookup | FieldLedger";
+const description = "Free NFPA 96 Table 12.4 exhaust hood cleaning frequency lookup. Check mandatory inspection and degreasing intervals for commercial kitchens.";
+const canonical = "https://fieldledger.bridgewayapps.com/tools/nfpa-96-hood-cleaning-frequency";
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'NFPA 96 Hood Cleaning Frequency Lookup',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'All',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-white transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-violet-400 font-semibold">NFPA 96 Hood Cleaning Matrix</span>
+    </nav>
+
+    <!-- Lookup Component -->
+    <HoodFrequencyLookup client:load />
+
+    <!-- Educational Context Section for SEO/GEO -->
+    <div class="mt-16 rounded-3xl border border-carbon-700 bg-carbon-900/60 p-8 sm:p-10 space-y-6 text-left">
+      <h3 class="text-2xl font-bold text-white">NFPA 96 Table 12.4 Legal Standards</h3>
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <p>
+          NFPA 96 (Standard for Ventilation Control and Fire Protection of Commercial Cooking Operations) mandates that entire commercial kitchen exhaust systems (canopy hood, grease filters, ductwork, and roof exhaust fan) must be cleaned to bare metal by certified personnel according to cooking type and volume.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

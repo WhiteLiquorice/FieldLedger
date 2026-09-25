@@ -1,0 +1,63 @@
+{
+  "verifiedAt": "2026-09-14T01:54:00.000Z",
+  "projectId": "fieldledger-prod",
+  "projectNumber": "904180772602",
+  "webAppId": "1:904180772602:web:877c8131157157e3b7e343",
+  "hostingSite": "fieldledger-prod",
+  "hostingUrl": "https://fieldledger-prod.web.app",
+  "buildId": "a77c7360c53bd35876b5",
+  "sourceHash": "b982a75b4c9840255b7e20833de8efeb1f9d366b44f7e099c434031c22fd0614",
+  "billingLinked": true,
+  "billingAccount": "012526-75DBC0-8B6640",
+  "budgetAlertId": "8f614863-11ec-4934-928d-1ee134d7aa32",
+  "budgetAmount": "25.00 USD",
+  "appCheckConfigured": true,
+  "recaptchaSiteKey": "6LfS9bktAAAAAELDTUmaJdoQV1GH3QzCbCb3SIMW",
+  "stripeConfigured": true,
+  "stripePriceId": "price_1U80EbJRMfcFhxi8TJ9UJwAN",
+  "deployed": true,
+  "deploymentStatus": {
+    "firestoreRules": "released",
+    "firestoreIndexes": "released",
+    "storageRules": "released",
+    "hosting": "released",
+    "functionsTotal": 30,
+    "functionsActive": 30,
+    "functionsBlockedByCpuQuota": 0
+  },
+  "acceptanceStatus": {
+    "suite": "scripts/run-prod-canary.mjs",
+    "status": "PASSED",
+    "totalChecks": 31,
+    "passed": 31,
+    "failed": 0,
+    "verifiedAt": "2026-09-14T01:53:56.000Z"
+  },
+  "database": {
+    "name": "projects/fieldledger-prod/databases/(default)",
+    "location": "us-central1",
+    "type": "FIRESTORE_NATIVE"
+  },
+  "storage": {
+    "bucketName": "fieldledger-prod.firebasestorage.app",
+    "location": "US-CENTRAL1",
+    "storageClass": "STANDARD"
+  },
+  "auth": {
+    "type": "IDENTITY_PLATFORM",
+    "emailPasswordEnabled": true,
+    "authorizedDomains": [
+      "localhost",
+      "fieldledger-prod.firebaseapp.com",
+      "fieldledger-prod.web.app",
+      "fieldledger.bridgewayapps.com"
+    ]
+  },
+  "secretManagerApiEnabled": true,
+  "secretsConfigured": [
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET"
+  ],
+  "billingAndSecretsVerifiedAt": "2026-09-14T01:39:15.000Z",
+  "deploymentVerifiedAt": "2026-09-14T01:50:07.000Z"
+}

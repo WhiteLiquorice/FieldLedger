@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = "FieldLedger vs InspectPoint: Modern Lightweight Inspection Software | FieldLedger";
+const description = "Compare FieldLedger and InspectPoint. See why growing fire protection, hood cleaning, and grease service contractors prefer FieldLedger's lightweight mobile PWA and transparent $49/mo pricing.";
+const canonical = "https://fieldledger.bridgewayapps.com/compare/inspectpoint-alternative";
+
+const comparisonPoints = [
+  { metric: 'Starting Price', inspectPoint: '$150 - $400+/mo (Complex quoting)', fieldLedger: '$49/mo (Transparent flat rate)' },
+  { metric: 'Mobile App Type', inspectPoint: 'Native iOS/iPad app focus', fieldLedger: 'Offline PWA (Runs on any iPhone, Android, or tablet)' },
+  { metric: 'Trades Covered', inspectPoint: 'Fire protection & sprinkler focused', fieldLedger: 'Fire Extinguishers, Kitchen Hoods, Grease Interceptors' },
+  { metric: 'Setup & Onboarding Time', inspectPoint: '1 - 3 weeks with sales rep onboarding', fieldLedger: 'Under 2 minutes with instant trial launch' },
+  { metric: 'Deficiency Quoting', inspectPoint: 'Enterprise quoting module', fieldLedger: '1-click field deficiency estimates' },
+  { metric: 'Contract Requirements', inspectPoint: 'Annual billing contracts', fieldLedger: 'Month-to-month, cancel anytime' },
+];
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-left">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/compare" class="hover:text-white transition-colors">Comparisons</a>
+      <span>/</span>
+      <span class="text-orange-400 font-semibold">InspectPoint Alternative</span>
+    </nav>
+
+    <!-- Header Hero -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>⚡ Lightweight Speed vs Heavyweight Enterprise</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        FieldLedger vs InspectPoint
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Need fast, modern inspection software without the bloated enterprise complexity or high monthly minimums? FieldLedger gives your techs an intuitive mobile PWA that gets inspections done in half the time.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/app?plan=pro"
+          class="rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/25 transition-all"
+        >
+          <span>Launch 14-Day Free Trial →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Comparison Matrix -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/80 p-6 sm:p-8 mb-16 overflow-hidden">
+      <h2 class="text-xl sm:text-2xl font-bold text-white mb-6 text-center">
+        InspectPoint vs FieldLedger Comparison
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-carbon-800 text-slate-400 uppercase text-[11px]">
+              <th class="py-3 px-4 font-bold">Category</th>
+              <th class="py-3 px-4 font-bold text-slate-400">InspectPoint</th>
+              <th class="py-3 px-4 font-bold text-orange-400 bg-orange-500/10 rounded-t-xl">FieldLedger</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-carbon-800/60">
+            {comparisonPoints.map((row) => (
+              <tr class="hover:bg-carbon-800/30 transition-colors">
+                <td class="py-4 px-4 font-semibold text-white">{row.metric}</td>
+                <td class="py-4 px-4 text-slate-400">{row.inspectPoint}</td>
+                <td class="py-4 px-4 font-bold text-orange-300 bg-orange-500/5">{row.fieldLedger}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-3xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-carbon-900 to-carbon-900 p-8 sm:p-12 text-center">
+      <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">
+        Experience the Simplicity of FieldLedger
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-8">
+        Start your 14-day free trial on FieldLedger today. Up and running in 2 minutes.
+      </p>
+      <a
+        href="/app?plan=pro"
+        class="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/30 transition-all"
+      >
+        <span>Start 14-Day Free Trial →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

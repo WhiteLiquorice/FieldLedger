@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "productName": "FieldLedger",
+  "canonicalDomain": "https://fieldledger.bridgewayapps.com",
+  "status": "local-candidate",
+  "firebase": {
+    "stagingProjects": [
+      "fieldledger-stg"
+    ],
+    "productionProjects": [
+      "fieldledger-prod"
+    ],
+    "provisionedProjects": [
+      "fieldledger-stg",
+      "fieldledger-prod"
+    ]
+  },
+  "hostingTarget": "fieldledger",
+  "appMode": "firebase-with-explicit-demo",
+  "appDirectory": "apps/fieldledger",
+  "stripePlans": {
+    "STRIPE_STARTER_PRICE_ID": "price_1U80EbJRMfcFhxi8TJ9UJwAN"
+  },
+  "coreWorkflow": "Service visit to service record",
+  "requiredCanaries": [
+    "signup-onboarding",
+    "core-workflow",
+    "durability-new-session",
+    "tenant-isolation",
+    "billing-lifecycle",
+    "export-delete",
+    "mobile-upload-network",
+    "backup-restore",
+    "buyer-artifact"
+  ],
+  "handoffDocument": "FIELDLEDGER_PRODUCTION.md"
+}

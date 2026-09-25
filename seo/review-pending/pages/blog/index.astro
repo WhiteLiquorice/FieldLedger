@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const categoryBadges: Record<string, { label: string; color: string }> = {
+  'fire-extinguisher': { label: 'Fire Extinguishers', color: 'border-safety-orange/40 bg-safety-orange/10 text-safety-orange' },
+  'hood-cleaning': { label: 'Kitchen Hood Cleaning', color: 'border-safety-amber/40 bg-safety-amber/10 text-safety-amber' },
+  'grease-trap': { label: 'Grease Traps & FOG', color: 'border-safety-cyan/40 bg-safety-cyan/10 text-safety-cyan' },
+  'comparison': { label: 'Software & Tools', color: 'border-purple-500/40 bg-purple-950/40 text-purple-300' },
+  'general-compliance': { label: 'Contractor Operations', color: 'border-emerald-500/40 bg-emerald-950/40 text-emerald-400' },
+};
+
+const blogFaqs = [
+  {
+    question: "How often are commercial kitchen exhaust hoods required to be cleaned under NFPA 96?",
+    answer: "Cleaning frequency depends strictly on cooking volume and fuel type (NFPA 96 Table 12.4): Monthly for high-volume solid fuel (wood/charcoal) or 24-hour fast food; Quarterly for moderate-to-high volume cooking; Semi-annually for moderate volume kitchens; and Annually for low-volume seasonal operations (e.g., churches, day camps)."
+  },
+  {
+    question: "What is the difference between a 6-year teardown and a 12-year hydrostatic test for fire extinguishers?",
+    answer: "A 6-year maintenance examination requires completely emptying the dry chemical extinguisher, checking all internal mechanical components, and replacing the O-rings before refilling and re-pressurizing. A 12-year hydrostatic test requires a high-pressure water test of the cylinder itself to certify structural integrity against rupturing."
+  },
+  {
+    question: "What triggers a municipal 25% Rule grease trap violation?",
+    answer: "Under EPA and municipal Fats, Oils, and Grease (FOG) ordinances, if the combined thickness of floating top grease plus settled bottom sludge exceeds 25% of the total liquid operating depth, the interceptor is considered full and in violation. Commercial kitchens must have the trap pumped immediately to avoid wastewater surcharges."
+  },
+  {
+    question: "Can local fire marshals require specific digital inspection tag formats?",
+    answer: "While states like Missouri, Texas, and Florida enforce state-level licensing rules for physical collar rings and service tags, the majority of municipal AHJs accept digital inspection logs provided they include the technician's full license number, GPS timestamp, asset identifier, and pass/fail checklist items."
+  }
+];
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://fieldledger.bridgewayapps.com' },
+  { name: 'Blog & Articles', url: 'https://fieldledger.bridgewayapps.com/blog' },
+];
+---
+
+<BaseLayout
+  title="Field Service & Code Compliance Blog | FieldLedger"
+  description="Practical field guides, inspection checklists, NFPA 10/96 code breakdowns, and municipal grease compliance articles for commercial service contractors."
+  breadcrumbs={breadcrumbs}
+  faqs={blogFaqs}
+>
+  <div class="py-12 lg:py-16 bg-carbon-950 border-b border-carbon-800">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb & Header -->
+      <div class="max-w-3xl mb-12">
+        <nav class="flex items-center gap-2 text-xs text-slate-400 mb-4">
+          <a href="/" class="hover:text-safety-orange">Home</a>
+          <span>/</span>
+          <span class="text-slate-200 font-semibold">Articles & Guides</span>
+        </nav>
+
+        <div class="inline-flex items-center gap-2 rounded-lg border border-safety-orange/30 bg-safety-orange/10 px-3 py-1 text-xs font-semibold text-safety-orange mb-4">
+          <span class="h-2 w-2 rounded-full bg-safety-orange"></span>
+          Field Compliance Handbook & Industry Articles
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight font-sans">
+          Contractor Compliance Guides & FAQs
+        </h1>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed mt-3">
+          Practical, straightforward articles on state fire marshal rules, commercial kitchen exhaust codes, grease trap pumping regulations, and running efficient field inspection routes.
+        </p>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        {sortedPosts.map((post) => {
+          const badge = categoryBadges[post.data.vertical] || categoryBadges['general-compliance'];
+          return (
+            <article class="rounded-2xl border border-carbon-800 bg-carbon-900/60 p-6 flex flex-col justify-between hover:border-carbon-700 hover:bg-carbon-900 transition-all hover:shadow-xl group">
+              <div>
+                <div class="flex items-center justify-between text-xs mb-3">
+                  <span class={`inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-semibold ${badge.color}`}>
+                    {badge.label}
+                  </span>
+                  <time datetime={post.data.pubDate.toISOString()} class="text-slate-400 text-xs">
+                    {new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(post.data.pubDate)}
+                  </time>
+                </div>
+
+                <h2 class="text-lg font-bold text-white mb-2 group-hover:text-safety-orange transition-colors line-clamp-2 font-sans">
+                  <a href={`/blog/${post.slug}`}>
+                    {post.data.title}
+                  </a>
+                </h2>
+
+                <p class="text-xs text-slate-300 leading-relaxed line-clamp-3 mb-5 font-sans">
+                  {post.data.description}
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-carbon-800 flex items-center justify-between text-xs">
+                <span class="text-slate-400">{post.data.author}</span>
+                <a href={`/blog/${post.slug}`} class="font-bold text-safety-orange group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
+                  Read Article &rarr;
+                </a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+      <!-- Blog FAQ Section -->
+      <div class="pt-12 border-t border-carbon-800 max-w-4xl">
+        <div class="mb-8">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-safety-orange">Common Industry Questions</span>
+          <h2 class="text-2xl font-extrabold text-white mt-1">Field Compliance FAQ</h2>
+        </div>
+
+        <div class="space-y-4">
+          {blogFaqs.map((faq) => (
+            <div class="rounded-xl border border-carbon-800 bg-carbon-900/50 p-5">
+              <h3 class="text-sm font-bold text-white mb-1.5">{faq.question}</h3>
+              <p class="text-xs text-slate-300 leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

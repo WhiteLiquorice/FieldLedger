@@ -1,0 +1,36 @@
+{
+  "name": "FieldLedger — Field Inspection & Compliance",
+  "short_name": "FieldLedger",
+  "description": "Offline-ready field inspection and compliance reporting software for fire safety, kitchen exhaust hood, and grease trap service contractors.",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#070a0f",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/app/icons/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "New Inspection",
+      "short_name": "Inspect",
+      "description": "Start a new equipment barcode scan",
+      "url": "/app/?action=scan",
+      "icons": [{ "src": "/app/icons/icon.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Service Records",
+      "short_name": "Reports",
+      "description": "View generated customer service records",
+      "url": "/app/?view=reports",
+      "icons": [{ "src": "/app/icons/icon.svg", "sizes": "192x192" }]
+    }
+  ]
+}

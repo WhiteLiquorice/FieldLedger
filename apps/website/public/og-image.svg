@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="FieldLedger field service records">
+  <rect width="1200" height="630" fill="#080b11"/><path d="M0 520h1200v110H0z" fill="#0f1722"/>
+  <rect x="72" y="70" width="74" height="74" rx="18" fill="#f97316"/><path d="M93 88h34v10h-23v10h20v10h-20v18H93z" fill="#fff"/>
+  <text x="170" y="122" fill="#fff" font-family="Arial, sans-serif" font-size="44" font-weight="800">FieldLedger</text>
+  <text x="72" y="255" fill="#fff" font-family="Arial, sans-serif" font-size="72" font-weight="800">Field records that survive</text>
+  <text x="72" y="337" fill="#fff" font-family="Arial, sans-serif" font-size="72" font-weight="800">the end of the route.</text>
+  <text x="72" y="410" fill="#94a3b8" font-family="Arial, sans-serif" font-size="30">Assets · photos · service observations · recurring work</text>
+  <rect x="72" y="535" width="298" height="54" rx="12" fill="#f97316"/><text x="100" y="571" fill="#fff" font-family="Arial, sans-serif" font-size="24" font-weight="700">Open the workspace</text>
+</svg>

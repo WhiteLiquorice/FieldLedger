@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = "Paper Hole-Punch Fire Tags vs Digital Barcode Software | FieldLedger";
+const description = "Compare physical paper hole-punch tags vs modern digital barcode inspection software. Learn how switching to digital inspections eliminates legal liability and increases contractor route revenue.";
+const canonical = "https://fieldledger.bridgewayapps.com/compare/paper-tags-vs-digital-inspections";
+
+const paperVsDigital = [
+  { aspect: 'Inspection Speed', paper: 'Slow: Hand-punching month/year, manual pen logging', digital: 'Fast: Sub-2 second camera barcode scan & automated pass/fail' },
+  { aspect: 'Audit & Liability Defense', paper: 'Fragile: Paper tags fade, rip, get soaked, or get lost', digital: 'Ironclad: Timestamped GPS logs and photo evidence stored in cloud' },
+  { aspect: 'Customer Deliverables', paper: 'Messy carbon copy slips left on property manager desk', digital: 'Branded professional PDF certificate auto-emailed to client & AHJ' },
+  { aspect: 'Recurring Route Revenue', paper: 'Manual whiteboards or spreadsheets leading to forgotten accounts', digital: 'Automated 30-day renewal reminders for next year’s annual service' },
+  { aspect: 'Office Administration', paper: '4-8 hours every Friday re-typing field notes into QuickBooks', digital: 'Zero double-entry: digital records sync instantly' },
+];
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-5xl mx-auto text-left">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/compare" class="hover:text-white transition-colors">Comparisons</a>
+      <span>/</span>
+      <span class="text-orange-400 font-semibold">Paper Tags vs Digital Software</span>
+    </nav>
+
+    <!-- Header Hero -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>📋 Paper Tags vs Digital Barcodes</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        Paper Hole-Punch Tags vs Digital Software
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Are paper clipboards and hole-punch tags holding your service business back? Discover how digital inspection records protect your company from liability, satisfy fire marshals, and save hours of administrative paperwork.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/app?plan=pro"
+          class="rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/25 transition-all"
+        >
+          <span>Upgrade to Digital Free for 14 Days →</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/80 p-6 sm:p-8 mb-16 overflow-hidden">
+      <h2 class="text-xl sm:text-2xl font-bold text-white mb-6 text-center">
+        Why Contractors Are Retiring Paper Tags
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-carbon-800 text-slate-400 uppercase text-[11px]">
+              <th class="py-3 px-4 font-bold">Operational Aspect</th>
+              <th class="py-3 px-4 font-bold text-red-400">Traditional Paper Tags</th>
+              <th class="py-3 px-4 font-bold text-emerald-400 bg-emerald-500/10 rounded-t-xl">FieldLedger Digital</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-carbon-800/60">
+            {paperVsDigital.map((row) => (
+              <tr class="hover:bg-carbon-800/30 transition-colors">
+                <td class="py-4 px-4 font-semibold text-white">{row.aspect}</td>
+                <td class="py-4 px-4 text-slate-400">{row.paper}</td>
+                <td class="py-4 px-4 font-bold text-emerald-300 bg-emerald-500/5">{row.digital}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="rounded-3xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-carbon-900 to-carbon-900 p-8 sm:p-12 text-center">
+      <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">
+        Ditch Paper Tags in Under 2 Minutes
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-8">
+        Start scanning barcodes and generating professional PDF certificates today. 14-day free trial on the Pro plan.
+      </p>
+      <a
+        href="/app?plan=pro"
+        class="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/30 transition-all"
+      >
+        <span>Launch Free Trial on FieldLedger →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,96 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalUrl?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  faqs?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const {
+  title,
+  description = 'FieldLedger helps specialized service contractors replace paper and spreadsheets with structured field records, photos, recurring work, and downloadable customer service records.',
+  canonicalUrl: canonicalOverride,
+  image = 'https://fieldledger.bridgewayapps.com/og-image.svg',
+  type = 'website',
+  pubDate,
+  updatedDate,
+  author,
+  faqs,
+  breadcrumbs
+} = Astro.props;
+
+const siteName = 'FieldLedger';
+const formattedTitle = title.includes('FieldLedger') ? title : `${title} | ${siteName}`;
+const normalizedPath = Astro.url.pathname === '/' ? '/' : Astro.url.pathname.replace(/\/+$/, '');
+const canonicalUrl = canonicalOverride || new URL(normalizedPath, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b11" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO Meta Tags -->
+    <title>{formattedTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={formattedTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content="FieldLedger field-service record workspace" />
+    <meta property="og:site_name" content={siteName} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={formattedTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content="FieldLedger field-service record workspace" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <SchemaMarkup
+      type={type === 'article' ? 'article' : 'software'}
+      title={formattedTitle}
+      description={description}
+      url={canonicalUrl}
+      pubDate={pubDate}
+      updatedDate={updatedDate}
+      author={author}
+      faqs={faqs}
+      breadcrumbs={breadcrumbs}
+    />
+  </head>
+  <body class="bg-carbon-950 text-slate-100 font-sans antialiased selection:bg-safety-orange selection:text-white min-h-screen flex flex-col">
+    <Navbar activePath={Astro.url.pathname} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "firestore": {
+    "predeploy": [
+      "node ../policy-verification/block-shared-rule-deploy.mjs"
+    ],
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "storage": {
+    "predeploy": [
+      "node ../policy-verification/block-shared-rule-deploy.mjs"
+    ],
+    "rules": "storage.rules"
+  },
+  "emulators": {
+    "auth": {
+      "host": "127.0.0.1",
+      "port": 9099
+    },
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8085
+    },
+    "storage": {
+      "host": "127.0.0.1",
+      "port": 9199
+    },
+    "functions": {
+      "host": "127.0.0.1",
+      "port": 5001
+    },
+    "hosting": {
+      "host": "127.0.0.1",
+      "port": 5000
+    },
+    "ui": {
+      "enabled": false
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "fieldledger",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "node ../policy-verification/block-shared-rule-deploy.mjs",
+        "npm run build:core",
+        "npm run build:functions"
+      ]
+    }
+  ],
+  "hosting": {
+    "target": "fieldledger",
+    "public": "apps/website/dist",
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+      {
+        "source": "/app/**",
+        "destination": "/app/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.map"
+    ],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "Strict-Transport-Security",
+            "value": "max-age=31536000; includeSubDomains"
+          },
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          },
+          {
+            "key": "X-Frame-Options",
+            "value": "DENY"
+          },
+          {
+            "key": "Referrer-Policy",
+            "value": "strict-origin-when-cross-origin"
+          },
+          {
+            "key": "Permissions-Policy",
+            "value": "camera=(self), geolocation=(), microphone=(), payment=()"
+          },
+          {
+            "key": "Content-Security-Policy",
+            "value": "default-src 'self'; script-src 'self' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://*.googleapis.com https://*.firebaseio.com https://*.cloudfunctions.net https://*.stripe.com; frame-src https://www.google.com https://www.recaptcha.net; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self' https://checkout.stripe.com; upgrade-insecure-requests"
+          }
+        ]
+      },
+      {
+        "source": "/app/sw.js",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+          { "key": "Service-Worker-Allowed", "value": "/app" }
+        ]
+      },
+      {
+        "source": "/fieldledger-sample-service-record.pdf",
+        "headers": [{ "key": "Content-Disposition", "value": "attachment; filename=\"FieldLedger-Sample-Service-Record.pdf\"" }]
+      },
+      {
+        "source": "/app/release.json",
+        "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+      },
+      {
+        "source": "/app/assets/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "/_astro/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      }
+    ],
+    "predeploy": [
+      "node ../policy-verification/block-shared-rule-deploy.mjs",
+      "node scripts/check-hosting-config.mjs"
+    ]
+  }
+}

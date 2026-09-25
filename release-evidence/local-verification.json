@@ -1,0 +1,32 @@
+{
+  "scope": "local-only",
+  "results": [
+    {
+      "name": "unit-tests",
+      "command": "npm test",
+      "startedAt": "2026-09-05T05:42:45.295Z",
+      "finishedAt": "2026-09-05T05:42:55.985Z",
+      "status": "passed",
+      "exitCode": 0,
+      "log": "unit-tests.log"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "startedAt": "2026-09-05T05:42:55.989Z",
+      "finishedAt": "2026-09-05T05:44:14.779Z",
+      "status": "passed",
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    {
+      "name": "release-audit",
+      "command": "npm run audit:release",
+      "startedAt": "2026-09-05T05:44:14.780Z",
+      "finishedAt": "2026-09-05T05:44:19.286Z",
+      "status": "passed",
+      "exitCode": 0,
+      "log": "release-audit.log"
+    }
+  ]
+}

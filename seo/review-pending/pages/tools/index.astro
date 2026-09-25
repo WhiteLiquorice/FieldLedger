@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const title = "Free Contractor Compliance Tools & Calculators | FieldLedger";
+const description = "Free interactive tools for fire protection, kitchen hood cleaning, and grease trap pumping contractors. Calculate NFPA 10 hydro dates, 25% FOG rule thresholds, and NFPA 96 cleaning intervals.";
+const canonical = "https://fieldledger.bridgewayapps.com/tools";
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>⚡ 100% Free Contractor Tools</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        Field Compliance Calculators
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Free instant calculations for life safety contractors, kitchen exhaust degreasers, and grease interceptor pumpers.
+      </p>
+    </div>
+
+    <!-- Tools Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <!-- Tool 1 -->
+      <a
+        href="/tools/nfpa-10-hydro-calculator"
+        class="group rounded-3xl border border-carbon-700 bg-carbon-900/60 hover:bg-carbon-900 hover:border-orange-500/50 p-8 transition-all shadow-xl flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-orange-500/10 text-orange-400 border border-orange-500/30 grid place-items-center font-bold text-2xl mb-6">
+            🧯
+          </div>
+          <h2 class="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors">
+            NFPA 10 Hydro & 6-Year Calculator
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            Calculate 5-year and 12-year hydrostatic pressure retest deadlines and 6-year internal teardown milestones across dry chemical, CO2, clean agent, and Class K cylinders.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-4 border-t border-carbon-800 text-xs font-bold text-orange-400">
+          <span>Launch Calculator</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Tool 2 -->
+      <a
+        href="/tools/grease-trap-fog-calculator"
+        class="group rounded-3xl border border-carbon-700 bg-carbon-900/60 hover:bg-carbon-900 hover:border-cyan-500/50 p-8 transition-all shadow-xl flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 grid place-items-center font-bold text-2xl mb-6">
+            🛢️
+          </div>
+          <h2 class="text-xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+            25% FOG Grease Trap Calculator
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            Check EPA and municipal sewer 25% rule compliance by measuring liquid depth, grease layer, and bottom sludge. Calculates capacity percent and waste volume.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-4 border-t border-carbon-800 text-xs font-bold text-cyan-400">
+          <span>Launch Calculator</span>
+          <span>→</span>
+        </div>
+      </a>
+
+      <!-- Tool 3 -->
+      <a
+        href="/tools/nfpa-96-hood-cleaning-frequency"
+        class="group rounded-3xl border border-carbon-700 bg-carbon-900/60 hover:bg-carbon-900 hover:border-violet-500/50 p-8 transition-all shadow-xl flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-14 h-14 rounded-2xl bg-violet-500/10 text-violet-400 border border-violet-500/30 grid place-items-center font-bold text-2xl mb-6">
+            💨
+          </div>
+          <h2 class="text-xl font-bold text-white mb-3 group-hover:text-violet-400 transition-colors">
+            NFPA 96 Hood Cleaning Frequency Matrix
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+            Look up Table 12.4 mandated exhaust hood inspection and degreasing intervals based on cooking volume (solid fuel, 24-hr diner, fast food, casual dining).
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-4 border-t border-carbon-800 text-xs font-bold text-violet-400">
+          <span>Launch Lookup Tool</span>
+          <span>→</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- PWA CTA -->
+    <div class="rounded-3xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-carbon-900 to-carbon-900 p-8 sm:p-12 text-center">
+      <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">
+        Tired of Manual Calculations in the Field?
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-8">
+        FieldLedger does all these calculations automatically on every barcode scan. Start your 14-day free trial on our offline mobile PWA.
+      </p>
+      <a
+        href="/app?plan=pro"
+        class="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/30 transition-all"
+      >
+        <span>Launch Free Trial on FieldLedger →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

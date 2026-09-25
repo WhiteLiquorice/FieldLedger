@@ -1,0 +1,62 @@
+{
+  "verifiedAt": "2026-09-14T00:52:00.000Z",
+  "projectId": "fieldledger-stg",
+  "projectNumber": "814312453280",
+  "webAppId": "1:814312453280:web:022f1aa8448b3d8df085c5",
+  "hostingSite": "fieldledger-stg",
+  "hostingUrl": "https://fieldledger-stg.web.app",
+  "buildId": "6e80d11c8b9ce63a05ef",
+  "sourceHash": "f29887aa5c30f8a6fbe82856d79b8e2af08da0eaf501f1cb2807e25146372c67",
+  "billingLinked": true,
+  "appCheckConfigured": true,
+  "recaptchaSiteKey": "6LfI8rktAAAAAOxljREoGsydcZgt5CqY-6A8WXXH",
+  "stripeConfigured": true,
+  "stripeTestPriceId": "price_1U80EbJRMfcFhxi8TJ9UJwAN",
+  "stripeTestWebhookEndpointId": "we_1UFKy7JRMfcFhxi89HWYco7h",
+  "stripeCustomerPortalConfigId": "bpc_1UFKyFJRMfcFhxi8PT7YDXVl",
+  "deployed": true,
+  "deploymentStatus": {
+    "firestoreRules": "released",
+    "firestoreIndexes": "released",
+    "storageRules": "released",
+    "hosting": "released",
+    "functionsTotal": 30,
+    "functionsActive": 30,
+    "functionsBlockedByCpuQuota": 0
+  },
+  "acceptanceStatus": {
+    "suite": "scripts/run-staging-acceptance.mjs",
+    "status": "PASSED",
+    "totalChecks": 31,
+    "passed": 31,
+    "failed": 0,
+    "verifiedAt": "2026-09-14T00:52:00.000Z"
+  },
+  "database": {
+    "name": "projects/fieldledger-stg/databases/(default)",
+    "location": "us-central1",
+    "pitr": "POINT_IN_TIME_RECOVERY_DISABLED",
+    "freeTier": true
+  },
+  "storage": {
+    "bucketName": "fieldledger-stg.firebasestorage.app",
+    "location": "US-CENTRAL1",
+    "storageClass": "STANDARD"
+  },
+  "auth": {
+    "type": "IDENTITY_PLATFORM",
+    "emailPasswordEnabled": true,
+    "authorizedDomains": [
+      "localhost",
+      "fieldledger-stg.firebaseapp.com",
+      "fieldledger-stg.web.app"
+    ]
+  },
+  "secretManagerApiEnabled": true,
+  "secretsConfigured": [
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET"
+  ],
+  "billingAndSecretsVerifiedAt": "2026-09-13T21:38:40.000Z",
+  "deploymentVerifiedAt": "2026-09-14T00:52:00.000Z"
+}

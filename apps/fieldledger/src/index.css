@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { border-color: rgba(255, 255, 255, 0.08); }
+  html { background: #080b11; }
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: #080b11;
+    color: #f1f5f9;
+    font-family: 'DM Sans', sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  h1, h2, h3, h4, .font-black { font-family: 'Manrope', sans-serif; }
+  button, input, select, textarea { font: inherit; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid rgba(253, 186, 116, .9);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .field {
+    @apply w-full rounded-xl border border-white/10 bg-[#090d14] px-3.5 py-3 text-sm text-white outline-none transition-all duration-200 placeholder:text-slate-700 focus:border-orange-300/60 focus:ring-4 focus:ring-orange-300/5;
+  }
+  .primary-button {
+    @apply inline-flex items-center gap-2 rounded-xl bg-orange-300 px-4 py-3 text-sm font-black text-slate-950 shadow-lg shadow-orange-500/5 transition-all duration-200 hover:bg-orange-200 hover:shadow-orange-300/10 active:scale-[.98] disabled:cursor-not-allowed;
+  }
+  .secondary-button {
+    @apply inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[.035] px-4 py-2.5 text-sm font-bold text-slate-300 transition-all duration-200 hover:border-white/20 hover:bg-white/[.07] hover:text-white active:scale-[.98];
+  }
+}
+
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: #080b11; }
+::-webkit-scrollbar-thumb { background: #273244; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #3c4a60; }
+
+@media print {
+  aside, header, button, .no-print { display: none !important; }
+  body, main { background: #fff !important; color: #111827 !important; }
+}
+

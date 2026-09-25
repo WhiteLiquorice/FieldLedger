@@ -1,0 +1,63 @@
+---
+interface Props {
+  className?: string;
+  size?: number;
+  showText?: boolean;
+}
+
+const { className = '', size = 36, showText = true } = Astro.props;
+---
+
+<div class={`flex items-center gap-3 ${className}`}>
+  <!-- Clean Shield Icon -->
+  <div class="relative flex items-center justify-center shrink-0" style={`width: ${size}px; height: ${size}px;`}>
+    <svg
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full h-full drop-shadow"
+    >
+      <!-- Base Shield -->
+      <polygon
+        points="24,3 44,11 44,28 24,45 4,28 4,11"
+        fill="#111722"
+        stroke="#253247"
+        stroke-width="2"
+      />
+      
+      <!-- Inner Border -->
+      <polygon
+        points="24,6 41,13 41,26 24,41 7,26 7,13"
+        fill="#070a0f"
+        stroke="#f97316"
+        stroke-width="1.5"
+      />
+
+      <!-- Inspection Checkmark & Gauge Core -->
+      <path
+        d="M24 14C24 14 28 18 28 22C28 24.2 26.2 26 24 26C21.8 26 20 24.2 20 22C20 19.5 22 17 24 14Z"
+        fill="#f97316"
+      />
+      <path
+        d="M17 31L22 36L32 24"
+        stroke="#ffffff"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </div>
+
+  {showText && (
+    <div class="flex flex-col text-left">
+      <div class="flex items-center gap-1.5">
+        <span class="text-xl font-extrabold tracking-tight text-white font-sans">
+          Field<span class="text-safety-orange">Ledger</span>
+        </span>
+      </div>
+      <span class="text-[10px] -mt-1 font-mono uppercase tracking-wider text-slate-400 font-semibold">
+        Field Compliance & Inspection Tools
+      </span>
+    </div>
+  )}
+</div>

@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { STATE_COMPLIANCE_DATA } from '../../data/stateComplianceData';
+
+const states = Object.values(STATE_COMPLIANCE_DATA);
+
+const title = "50-State Life Safety & AHJ Inspection Compliance Directory | FieldLedger";
+const description = "State-by-state directory of fire marshal inspection tagging codes, NFPA 10 licensing, NFPA 96 kitchen hood cleaning standards, and municipal 25% grease trap regulations.";
+const canonical = "https://fieldledger.bridgewayapps.com/compliance";
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <!-- Header Hero -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>🗺️ National Fire Marshal & AHJ Directory</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        State Inspection & Compliance Rules
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-8">
+        Select your state below to inspect administrative fire codes, digital tag legalities, NFPA 96 photo rules, and local municipal FOG sewer requirements.
+      </p>
+    </div>
+
+    <!-- State Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+      {states.map((st) => (
+        <a
+          href={`/compliance/${st.slug}`}
+          class="group rounded-2xl border border-carbon-700 bg-carbon-900/60 hover:bg-carbon-900/90 hover:border-orange-500/50 p-6 transition-all shadow-lg flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-bold text-orange-400 uppercase tracking-widest">{st.stateAbbr}</span>
+              <span class="text-xs text-slate-400 group-hover:text-orange-400 transition-colors">View Guide →</span>
+            </div>
+            <h2 class="text-xl font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">{st.stateName}</h2>
+            <p class="text-xs text-slate-300 line-clamp-2 mb-4">
+              {st.fireMarshalAuthority} ({st.administrativeCode})
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-carbon-800 flex items-center justify-between text-[11px] text-slate-400">
+            <span>{st.topCities.length} Metro Hubs</span>
+            <span class="text-emerald-400 font-semibold">{st.taggingRules.digitalTagStatus}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- Free Tools Callout -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/40 p-8 text-center">
+      <h3 class="text-xl font-bold text-white mb-3">Looking for Interactive Compliance Calculators?</h3>
+      <p class="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto mb-6">
+        Use our free browser tools to calculate NFPA 10 hydro test due dates, 25% grease trap limits, and NFPA 96 hood cleaning frequencies.
+      </p>
+      <a
+        href="/tools"
+        class="inline-flex items-center gap-2 rounded-xl border border-carbon-600 hover:border-orange-400 bg-carbon-800 px-6 py-3 text-xs font-bold text-white transition-all"
+      >
+        <span>View Free Contractor Tools →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

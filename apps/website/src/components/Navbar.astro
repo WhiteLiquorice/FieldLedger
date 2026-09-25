@@ -1,0 +1,30 @@
+---
+import FieldLedgerLogo from './FieldLedgerLogo.astro';
+
+interface Props { activePath?: string; }
+const { activePath = '/' } = Astro.props;
+const nav = [
+  { href: '/hood-cleaning', label: 'Hood cleaning' },
+  { href: '/fire-extinguisher', label: 'Fire extinguishers' },
+  { href: '/grease-trap', label: 'Grease traps' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full border-b border-carbon-800 bg-carbon-950/95 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <a href="/" class="transition-transform hover:scale-[1.01]" aria-label="FieldLedger home">
+      <FieldLedgerLogo size={32} />
+    </a>
+    <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-300 md:flex" aria-label="Solutions">
+      {nav.map((item) => (
+        <a href={item.href} class={`transition-colors hover:text-safety-orange ${activePath === item.href ? 'font-bold text-safety-orange' : ''}`}>
+          {item.label}
+        </a>
+      ))}
+      <a href="/#pricing" class="transition-colors hover:text-safety-orange">Pricing</a>
+    </nav>
+    <a href="/app/?mode=demo" class="inline-flex items-center justify-center rounded-lg border border-orange-400/50 bg-orange-500 px-4 py-2 text-sm font-black text-white shadow-lg shadow-orange-500/25 transition-all hover:scale-[1.02] hover:bg-orange-400">
+      Open demo →
+    </a>
+  </div>
+</header>

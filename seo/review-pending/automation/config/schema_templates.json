@@ -1,0 +1,20 @@
+{
+  "software_application": {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FieldLedger",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "iOS PWA, Android PWA, Web",
+    "url": "https://fieldledger.bridgewayapps.com",
+    "offers": {
+      "@type": "Offer",
+      "price": "49.00",
+      "priceCurrency": "USD"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "FieldLedger / Bridgeway Apps",
+    "url": "https://fieldledger.bridgewayapps.com"
+  }
+}

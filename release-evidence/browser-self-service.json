@@ -1,0 +1,17 @@
+{
+  "scope": "local-demo-and-acceptance",
+  "timestamp": "2026-09-14T02:14:32.593Z",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "status": "passed",
+  "journeys": [
+    "A: Command center & metrics",
+    "B: Team invitation & role dispatch",
+    "C: Job scheduling & lifecycle status",
+    "D: Checklist execution & report generation",
+    "E: Customer record download & billing teardown guard"
+  ],
+  "errors": []
+}

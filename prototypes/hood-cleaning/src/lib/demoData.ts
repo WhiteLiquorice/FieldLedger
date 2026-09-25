@@ -1,0 +1,182 @@
+import { 
+  HoodSystemAsset, 
+  Customer, 
+  SiteLocation, 
+  Organization 
+} from '@compliance-saas/backend-core';
+
+export const INITIAL_ORG: Organization = {
+  id: 'org-apex-hood',
+  name: 'Apex Commercial Kitchen Exhaust Cleaning LLC',
+  slug: 'apex-hood',
+  branding: {
+    companyName: 'Apex Commercial Hood & Duct Cleaning LLC',
+    phone: '(555) 441-9988',
+    email: 'service@apexhoodclean.com',
+    address: '1000 Industrial Pkwy',
+    city: 'Chicago',
+    state: 'IL',
+    zip: '60601',
+    licenseNumber: 'NFPA96-IL-9941',
+  },
+  activeVerticals: ['hood_cleaning'],
+  subscriptionTier: 'pro',
+  maxUsers: 10,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};
+
+export const INITIAL_CUSTOMERS: Customer[] = [
+  {
+    id: 'cust-grand-horizon',
+    orgId: 'org-apex-hood',
+    businessName: 'Grand Horizon Hospitality Group',
+    contacts: [
+      {
+        name: 'Elena Rostova',
+        email: 'elena@grandhorizon.com',
+        phone: '(555) 234-5678',
+        isBilling: true,
+        isPrimary: true,
+      }
+    ],
+    billingAddress: {
+      street: '777 Lakeshore Boulevard',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60601',
+    },
+    active: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'cust-prime-steak',
+    orgId: 'org-apex-hood',
+    businessName: 'Prime & Ember Steakhouse',
+    contacts: [
+      {
+        name: 'Chef Marcus Vance',
+        email: 'marcus@primeember.com',
+        phone: '(555) 345-6789',
+        isBilling: true,
+        isPrimary: true,
+      }
+    ],
+    billingAddress: {
+      street: '412 Michigan Avenue',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60611',
+    },
+    active: true,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+export const INITIAL_SITES: SiteLocation[] = [
+  {
+    id: 'site-grand-horizon-kitchen',
+    orgId: 'org-apex-hood',
+    customerId: 'cust-grand-horizon',
+    siteName: 'Grand Horizon Main Banquet Kitchen',
+    address: {
+      street: '777 Lakeshore Boulevard',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60601',
+    },
+    siteContact: {
+      name: 'Chef Robert Chen',
+      email: 'rchen@grandhorizon.com',
+      phone: '(555) 234-5679',
+    },
+    expectedHoodSystemCount: 2,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'site-prime-steak-main',
+    orgId: 'org-apex-hood',
+    customerId: 'cust-prime-steak',
+    siteName: 'Prime & Ember Downtown Location',
+    address: {
+      street: '412 Michigan Avenue',
+      city: 'Chicago',
+      state: 'IL',
+      zip: '60611',
+    },
+    siteContact: {
+      name: 'Marcus Vance',
+      email: 'marcus@primeember.com',
+      phone: '(555) 345-6789',
+    },
+    expectedHoodSystemCount: 1,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+export const INITIAL_HOOD_SYSTEMS: HoodSystemAsset[] = [
+  {
+    id: 'hood-gh-01',
+    orgId: 'org-apex-hood',
+    customerId: 'cust-grand-horizon',
+    siteId: 'site-grand-horizon-kitchen',
+    systemName: 'Main Cook Line Hood & Ducts',
+    locationDescription: 'Main Banquet Kitchen 1st Floor',
+    hoodLengthFeet: 24,
+    ductType: 'welded_steel',
+    fanType: 'upblast_roof',
+    fanHingesInstalled: true,
+    accessPanelsCount: 4,
+    cookingVolume: 'high',
+    lastCleanedAt: '2026-05-15T00:00:00Z',
+    nextCleaningDueAt: '2026-08-15T00:00:00Z',
+    serviceIntervalMonths: 3,
+    lastCondition: 'cleaned_to_bare_metal',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'hood-gh-02',
+    orgId: 'org-apex-hood',
+    customerId: 'cust-grand-horizon',
+    siteId: 'site-grand-horizon-kitchen',
+    systemName: 'Pastry & Baking Oven Hood',
+    locationDescription: 'Pastry Kitchen 1st Floor',
+    hoodLengthFeet: 12,
+    ductType: 'stainless',
+    fanType: 'upblast_roof',
+    fanHingesInstalled: true,
+    accessPanelsCount: 2,
+    cookingVolume: 'low',
+    lastCleanedAt: '2026-02-10T00:00:00Z',
+    nextCleaningDueAt: '2027-02-10T00:00:00Z',
+    serviceIntervalMonths: 12,
+    lastCondition: 'cleaned_to_bare_metal',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+  {
+    id: 'hood-prime-01',
+    orgId: 'org-apex-hood',
+    customerId: 'cust-prime-steak',
+    siteId: 'site-prime-steak-main',
+    systemName: 'Wood-Fired Charcoal & Mesquite Broiler Hood',
+    locationDescription: 'Display Cooking Line',
+    hoodLengthFeet: 18,
+    ductType: 'welded_steel',
+    fanType: 'upblast_roof',
+    fanHingesInstalled: true,
+    accessPanelsCount: 3,
+    cookingVolume: 'solid_fuel',
+    lastCleanedAt: '2026-07-20T00:00:00Z',
+    nextCleaningDueAt: '2026-08-20T00:00:00Z',
+    serviceIntervalMonths: 1,
+    lastCondition: 'moderate_buildup',
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];

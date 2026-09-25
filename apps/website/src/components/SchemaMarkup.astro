@@ -1,0 +1,118 @@
+---
+interface Props {
+  type?: 'software' | 'article' | 'faq' | 'breadcrumb';
+  title?: string;
+  description?: string;
+  url?: string;
+  pubDate?: Date;
+  updatedDate?: Date;
+  author?: string;
+  faqs?: Array<{ question: string; answer: string }>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+}
+
+const {
+  type = 'software',
+  title = 'FieldLedger — Field Service Records Without the Paperwork',
+  description = 'Field recording, barcode tracking, photo evidence, recurring work, and customer service records for specialized service contractors.',
+  url = 'https://fieldledger.bridgewayapps.com',
+  pubDate,
+  updatedDate,
+  author = 'FieldLedger Team',
+  faqs = [],
+  breadcrumbs = []
+} = Astro.props;
+
+const schemas: any[] = [];
+
+// 1. Organization & SoftwareApplication Schema (Default)
+schemas.push({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  'name': 'FieldLedger',
+  'applicationCategory': 'BusinessApplication',
+  'operatingSystem': 'Web, iOS PWA, Android PWA',
+  'url': 'https://fieldledger.bridgewayapps.com',
+  'description': description,
+  'offers': {
+    '@type': 'Offer',
+    'price': '49.00',
+    'priceCurrency': 'USD'
+  },
+  'featureList': [
+    'Fire extinguisher asset barcode tracking',
+    'Kitchen exhaust cleaning photo records',
+    'Grease trap pumping quantity and condition records',
+    'Offline-capable browser data cache after initial synchronization',
+    'Downloadable customer service records'
+  ],
+  'publisher': {
+    '@type': 'Organization',
+    'name': 'Bridgeway Suite',
+    'url': 'https://bridgewayapps.com'
+  }
+});
+
+// 2. Article / Blog Schema
+if (type === 'article' && pubDate) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    'headline': title,
+    'description': description,
+    'url': url,
+    'datePublished': pubDate.toISOString(),
+    'dateModified': (updatedDate || pubDate).toISOString(),
+    'author': {
+      '@type': 'Person',
+      'name': author
+    },
+    'publisher': {
+      '@type': 'Organization',
+      'name': 'FieldLedger',
+      'logo': {
+        '@type': 'ImageObject',
+        'url': 'https://fieldledger.bridgewayapps.com/favicon.svg'
+      }
+    },
+    'mainEntityOfPage': {
+      '@type': 'WebPage',
+      '@id': url
+    }
+  });
+}
+
+// 3. FAQPage Schema
+if (faqs && faqs.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    'mainEntity': faqs.map(faq => ({
+      '@type': 'Question',
+      'name': faq.question,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.answer
+      }
+    }))
+  });
+}
+
+// 4. BreadcrumbList Schema
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemas.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': breadcrumbs.map((crumb, idx) => ({
+      '@type': 'ListItem',
+      'position': idx + 1,
+      'name': crumb.name,
+      'item': crumb.url
+    }))
+  });
+}
+---
+
+{schemas.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

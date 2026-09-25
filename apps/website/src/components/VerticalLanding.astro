@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  headline: string;
+  intro: string;
+  vertical: 'hood_cleaning' | 'extinguisher' | 'grease_trap';
+  accent: 'orange' | 'violet' | 'cyan';
+  records: string[];
+  outcomes: string[];
+}
+
+const { title, description, eyebrow, headline, intro, vertical, accent, records, outcomes } = Astro.props;
+const accentClasses = {
+  orange: { text: 'text-orange-300', border: 'border-orange-500/30', glow: 'rgba(249,115,22,.16)', button: 'bg-orange-500 hover:bg-orange-400' },
+  violet: { text: 'text-violet-300', border: 'border-violet-500/30', glow: 'rgba(167,139,250,.16)', button: 'bg-violet-500 hover:bg-violet-400' },
+  cyan: { text: 'text-cyan-300', border: 'border-cyan-500/30', glow: 'rgba(34,211,238,.14)', button: 'bg-cyan-500 hover:bg-cyan-400' },
+}[accent];
+const signupUrl = `/app/?vertical=${vertical}`;
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="relative overflow-hidden border-b border-carbon-800 px-4 py-24 sm:px-6 lg:py-32">
+    <div class="pointer-events-none absolute inset-0" style={`background:radial-gradient(circle at 20% 10%,${accentClasses.glow},transparent 36%)`}></div>
+    <div class="relative mx-auto max-w-6xl">
+      <p class={`font-mono text-xs font-black uppercase tracking-[.2em] ${accentClasses.text}`}>{eyebrow}</p>
+      <h1 class="mt-6 max-w-4xl text-5xl font-black leading-[.96] tracking-[-.055em] text-white sm:text-7xl">{headline}</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-relaxed text-slate-300">{intro}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={signupUrl} class={`rounded-xl px-6 py-3.5 text-sm font-black text-white shadow-xl transition-all hover:-translate-y-0.5 ${accentClasses.button}`}>Start configured trial →</a>
+        <a href="#workflow" class="rounded-xl border border-carbon-700 bg-carbon-900/80 px-6 py-3.5 text-sm font-bold text-slate-200 hover:border-carbon-500">See what gets recorded</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="workflow" class="px-4 py-20 sm:px-6">
+    <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2">
+      <div class={`rounded-3xl border bg-carbon-900/65 p-7 ${accentClasses.border}`}>
+        <p class={`text-xs font-black uppercase tracking-[.16em] ${accentClasses.text}`}>Technician record</p>
+        <h2 class="mt-3 text-3xl font-black tracking-[-.035em] text-white">Capture the details your office needs.</h2>
+        <ul class="mt-7 space-y-3">{records.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class={accentClasses.text}>✓</span>{item}</li>)}</ul>
+      </div>
+      <div class="rounded-3xl border border-carbon-800 bg-carbon-900/65 p-7">
+        <p class="text-xs font-black uppercase tracking-[.16em] text-slate-500">Office outcome</p>
+        <h2 class="mt-3 text-3xl font-black tracking-[-.035em] text-white">Stop rebuilding field notes after the job.</h2>
+        <ul class="mt-7 space-y-3">{outcomes.map((item) => <li class="flex gap-3 text-sm leading-relaxed text-slate-300"><span class="text-slate-500">→</span>{item}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-carbon-800 bg-carbon-900/30 px-4 py-16 text-center sm:px-6">
+    <div class="mx-auto max-w-3xl"><h2 class="text-3xl font-black tracking-[-.04em] text-white">See the record before starting a trial.</h2><p class="mt-4 text-sm leading-relaxed text-slate-400">Explore a fictional workspace, open a service stop, and review the checklist your crew would use.</p><a href={`/app/?mode=demo&vertical=${vertical}`} class="inline-block mt-5 font-bold text-orange-300">Open the demo workspace →</a></div>
+  </section>
+
+  <section class="px-4 py-20 sm:px-6">
+    <div class="mx-auto max-w-4xl rounded-[2rem] border border-carbon-800 bg-carbon-900/70 p-8 text-center sm:p-12">
+      <p class={`text-xs font-black uppercase tracking-[.16em] ${accentClasses.text}`}>14-day trial · then $49/month</p>
+      <h2 class="mt-4 text-4xl font-black tracking-[-.04em] text-white">Set up the workflow your technicians will actually use.</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">FieldLedger documents operator-entered work and observations. It does not independently certify compliance.</p>
+      <a href={signupUrl} class={`mt-7 inline-flex rounded-xl px-6 py-3.5 text-sm font-black text-white ${accentClasses.button}`}>Create workspace →</a>
+    </div>
+  </section>
+</BaseLayout>

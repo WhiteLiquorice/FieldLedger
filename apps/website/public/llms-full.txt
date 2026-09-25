@@ -1,0 +1,11 @@
+# FieldLedger product reference
+
+FieldLedger uses one maintained application and shared backend. A customer selects one service during onboarding, and the organization stores one vertical. The logged-in product does not expose a niche switcher.
+
+Supported onboarding configurations are kitchen exhaust hood cleaning, portable fire extinguisher service, and grease trap or interceptor service. Each configuration changes terminology, asset fields, checklists, recurring-work defaults, and service-record presentation while retaining shared customer, site, job, photo, reporting, export, authentication, and billing infrastructure.
+
+FieldLedger is an operational recording system. Records reflect information supplied by the service provider. They are not an independent legal or regulatory certification, and FieldLedger does not guarantee acceptance by any authority, inspector, insurer, or customer.
+
+Offline behavior is limited to the browser application and cached or queued data after initial authentication and synchronization. Authentication, Stripe billing, and unsynchronized network uploads require connectivity.
+
+The launch subscription is $49 per month for up to three field technicians, with a 14-day trial through Stripe Checkout.

@@ -1,0 +1,23 @@
+{
+  "projects": {
+    "staging": "fieldledger-stg",
+    "production": "fieldledger-prod"
+  },
+  "targets": {
+    "fieldledger-stg": {
+      "hosting": {
+        "fieldledger": [
+          "fieldledger-stg"
+        ]
+      }
+    },
+    "fieldledger-prod": {
+      "hosting": {
+        "fieldledger": [
+          "fieldledger-prod"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

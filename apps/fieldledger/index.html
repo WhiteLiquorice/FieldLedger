@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>FieldLedger — Field Inspection & Compliance</title>
+    <meta name="description" content="Offline-ready field inspection and compliance reporting software for fire safety, kitchen exhaust hood, and grease trap service contractors." />
+    
+    <!-- PWA Web App Manifest -->
+    <link rel="manifest" href="/app/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/app/icons/icon.svg" />
+    
+    <!-- Theme & Color Config -->
+    <meta name="theme-color" content="#f97316" />
+    <meta name="color-scheme" content="dark" />
+    
+    <!-- iOS / Apple Web App Capabilities -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="FieldLedger" />
+    <link rel="apple-touch-icon" href="/app/icons/icon.svg" />
+    
+    <!-- Android / Chrome Capabilities -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="FieldLedger" />
+  </head>
+  <body class="antialiased bg-[#070a0f] text-slate-100 selection:bg-orange-500/30 min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/app/sw.js', { scope: '/app', updateViaCache: 'none' }).then(registration => registration.update()).catch((err) => {
+            console.warn('ServiceWorker registration error:', err);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

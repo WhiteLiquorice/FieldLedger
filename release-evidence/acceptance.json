@@ -1,0 +1,133 @@
+{
+  "product": "FieldLedger",
+  "releaseStatus": "local-candidate",
+  "runId": "b4d891c2-8ff3-4bb9-a53b-27af772be5eb",
+  "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272",
+  "startedAt": "2026-09-14T02:12:56.463Z",
+  "checks": {
+    "build": {
+      "status": "passed",
+      "command": "npm run build:all",
+      "log": "build.log",
+      "startedAt": "2026-09-14T02:13:40.270Z",
+      "timestamp": "2026-09-14T02:14:15.802Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "rules": {
+      "status": "passed",
+      "command": "npm run test:rules",
+      "log": "self-service-rules.log",
+      "startedAt": "2026-09-14T02:13:12.386Z",
+      "timestamp": "2026-09-14T02:13:40.269Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "e2e": {
+      "status": "passed",
+      "command": "npm run test:e2e:authenticated",
+      "log": "authenticated-e2e.log",
+      "startedAt": "2026-09-14T02:14:32.774Z",
+      "timestamp": "2026-09-14T02:16:50.045Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "canary": {
+      "status": "unverified",
+      "reason": "Historical evidence; not executed for this source snapshot."
+    },
+    "dependencies": {
+      "status": "unverified",
+      "reason": "Historical evidence; not executed for this source snapshot.",
+      "timestamp": "2026-09-10T19:31:01.781Z"
+    },
+    "live-routes": {
+      "status": "unverified",
+      "reason": "Historical evidence; not executed for this source snapshot.",
+      "evidence": "live-routes.json"
+    },
+    "customer-proof": {
+      "status": "unverified",
+      "reason": "Historical evidence; not executed for this source snapshot."
+    },
+    "unit-tests": {
+      "status": "passed",
+      "command": "npm run test:core",
+      "log": "unit-tests.log",
+      "startedAt": "2026-09-14T02:12:57.181Z",
+      "timestamp": "2026-09-14T02:13:02.110Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "release-audit": {
+      "status": "passed",
+      "command": "npm run audit:release",
+      "log": "release-audit.log",
+      "startedAt": "2026-09-14T02:14:15.803Z",
+      "timestamp": "2026-09-14T02:14:17.572Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "release-controls": {
+      "status": "unverified",
+      "tests": 46,
+      "evidence": "../../policy-verification/release-controls-results.log",
+      "reason": "Historical evidence; not executed for this source snapshot."
+    },
+    "release-runner": {
+      "status": "passed",
+      "command": "node --test tests/release-runner.test.mjs",
+      "log": "release-runner.log",
+      "startedAt": "2026-09-14T02:12:56.467Z",
+      "timestamp": "2026-09-14T02:12:56.904Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "functions-tests": {
+      "status": "passed",
+      "command": "npm run test:functions",
+      "log": "functions-tests.log",
+      "startedAt": "2026-09-14T02:13:02.110Z",
+      "timestamp": "2026-09-14T02:13:12.385Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "demo-e2e": {
+      "status": "passed",
+      "command": "npm run test:e2e",
+      "log": "demo-e2e.log",
+      "startedAt": "2026-09-14T02:14:17.572Z",
+      "timestamp": "2026-09-14T02:14:32.773Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    },
+    "service-worker": {
+      "status": "passed",
+      "command": "node --test tests/service-worker.test.mjs",
+      "log": "service-worker.log",
+      "startedAt": "2026-09-14T02:12:56.905Z",
+      "timestamp": "2026-09-14T02:12:57.180Z",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "sourceHash": "adb5e96ab6a7ce30b1f5bb7fbaccd7c20db1e43c8bfd3423139e833498470272"
+    }
+  },
+  "updatedAt": "2026-09-14T02:16:50.045Z"
+}

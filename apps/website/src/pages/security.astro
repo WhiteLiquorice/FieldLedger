@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Security Architecture & Data Controls | FieldLedger"
+  description="How FieldLedger implements workspace access checks, offline drafts, and release verification before customer onboarding."
+>
+  <div class="mx-auto max-w-4xl py-16 px-4 sm:px-6 lg:px-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold mb-4">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      SECURITY & RELEASE STATUS
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Security Architecture & Controls</h1>
+    <p class="text-sm text-slate-400 mt-2">The local candidate has passed automated checks. Production configuration and live acceptance remain incomplete.</p>
+
+    <div class="mt-8 space-y-8 text-sm text-slate-300 leading-relaxed border-t border-carbon-800 pt-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-carbon-800 bg-carbon-900/60 p-5">
+          <div class="text-xs font-mono text-emerald-400 font-bold uppercase mb-1">DATA TRANSPORT</div>
+          <h3 class="text-base font-bold text-white mb-2">HTTPS deployment requirement</h3>
+          <p class="text-xs text-slate-400">Production deployment must verify HTTPS, provider storage settings and data locations. No specific encryption algorithm or hosting region is certified by this page. Local drafts are readable browser data on the device.</p>
+        </div>
+        <div class="rounded-xl border border-carbon-800 bg-carbon-900/60 p-5">
+          <div class="text-xs font-mono text-cyan-400 font-bold uppercase mb-1">TENANT ISOLATION</div>
+          <h3 class="text-base font-bold text-white mb-2">Database Rules & IAM</h3>
+          <p class="text-xs text-slate-400">Firestore and Storage rules require an active operator membership for the requested organization. These controls reduce cross-tenant access risk but do not replace testing, monitoring, or incident response.</p>
+        </div>
+      </div>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">1. Cloud Infrastructure & Hosting Hardening</h2>
+        <p>
+          The candidate targets Firebase Auth, Firestore, Storage and Functions. Hosting headers and organization access checks exist in the repository, but deployed settings must be verified before customer onboarding. FieldLedger does not claim a SOC 2 report, ISO certification or an independent security assessment.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">2. Offline Data Storage & Sync Security</h2>
+        <p>
+          Checklist drafts and pending photos are stored in IndexedDB on the device. FieldLedger does not add application-level encryption to that local storage. Reconnect to upload evidence and finalize a visit; signing out clears local drafts. Use device access controls and avoid shared devices for customer information.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">3. Vulnerability Disclosure & Bug Reporting</h2>
+        <p>
+          A monitored security contact and incident owner must be confirmed before customer onboarding. No response-time commitment or unverified reporting address is published here.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Privacy Policy | FieldLedger"
+  description="Privacy Policy and Data Protection standards for FieldLedger field recording software."
+>
+  <div class="mx-auto max-w-4xl py-16 px-4 sm:px-6 lg:px-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-safety-orange/10 border border-safety-orange/30 text-safety-orange font-mono text-xs font-semibold mb-4">
+      LEGAL & DATA PROTECTION
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Privacy Policy</h1>
+    <p class="text-sm text-slate-400 mt-2">Last updated: August 2026</p>
+
+    <div class="mt-8 space-y-8 text-sm text-slate-300 leading-relaxed border-t border-carbon-800 pt-6">
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">1. Information We Collect</h2>
+        <p>
+          FieldLedger collects information required to deliver field service recording, asset barcode indexing, photo capture, and customer report compilation:
+        </p>
+        <ul class="list-disc pl-5 space-y-2 text-slate-400">
+          <li><strong class="text-slate-200">Account Credentials:</strong> Email address, business name, operator name, and authenticated user IDs.</li>
+          <li><strong class="text-slate-200">Field Service Records:</strong> Equipment serial numbers, barcode data, inspection dates, technician observations, deficiency flags, and customer location identifiers.</li>
+          <li><strong class="text-slate-200">Visual Evidence:</strong> Photographic records of fire extinguishers, kitchen hoods, and grease trap manifests uploaded by technicians.</li>
+          <li><strong class="text-slate-200">Payment & Billing Data:</strong> Payment card details are entered directly into Stripe Checkout when billing is configured. FieldLedger does not store raw credit card numbers.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">2. How We Use and Protect Your Data</h2>
+        <p>
+          Your data is used solely to provide, maintain, and secure the FieldLedger service. Organization membership and role checks are implemented in database rules and server operations. Local tests cover cross-workspace denial; production enforcement still requires deployed acceptance.
+        </p>
+        <p>
+          <strong class="text-white">We never sell, rent, or monetize your customer lists, equipment records, or service inspection histories.</strong>
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">3. Third-Party Subprocessors</h2>
+        <p>The candidate uses the following providers. The responsible owner must verify production configuration, data locations and applicable provider agreements before customer onboarding:</p>
+        <ul class="list-disc pl-5 space-y-2 text-slate-400">
+          <li><strong class="text-slate-200">Google Cloud Platform & Firebase:</strong> Hosting, database storage, photo storage, and authentication. Production data locations have not yet been verified.</li>
+          <li><strong class="text-slate-200">Stripe Inc.:</strong> Payment processing, customer portal, and recurring billing.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">4. GDPR, CCPA / CPRA, and Consumer Rights</h2>
+        <p>
+          Subject to applicable privacy legislation, you have the right to request access to, correction of, export of, or deletion of your personal and business records. Data export is available in standardized formats directly within your account console. A monitored privacy contact must be published by the responsible owner before customer onboarding.
+        </p>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">5. Data Retention & Offline Storage</h2>
+        <p>
+          The fictional demonstration stores its sample workspace as readable browser data on the device and does not synchronize it to a production account. Do not enter real customer or inspection information in demo mode. Production-mode records use the configured Firebase services. An owner can request workspace deletion after billing ends. The application disables the workspace and schedules deletion after seven days. Backup retention, provider retention and a monitored request channel must be confirmed before customer onboarding. Device drafts and pending photos remain local until uploaded; signing out clears them.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

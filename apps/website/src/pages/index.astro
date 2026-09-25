@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqs = [
+  { question: 'Who is FieldLedger built for?', answer: 'The initial offer is for small kitchen exhaust and hood-cleaning contractors who need an organized record of each visit, its photos, and any work that could not be completed.' },
+  { question: 'Does FieldLedger certify regulatory compliance?', answer: 'No. FieldLedger records work and observations entered by the service provider. The contractor remains responsible for qualifications, procedures, local requirements, and professional judgment.' },
+  { question: 'Can technicians work without a reliable signal?', answer: 'Open the assigned stop while connected. Checklist drafts and pending photos are saved on that device during interruptions. Reconnect to upload evidence and finalize the record. Signing in and loading workspace data require a connection. Signing out clears local drafts.' },
+  { question: 'What does the launch plan cost?', answer: 'The Starter plan is $49 per month for up to three field technicians, with a 14-day workspace trial. Subscription payments and cancellation are managed through Stripe.' },
+];
+
+const verticals = [
+  { href: '/hood-cleaning', label: 'Kitchen hood cleaning', accent: 'text-violet-300', border: 'hover:border-violet-400/40', description: 'Capture system details, before-and-after photos, technician observations, and the next company-scheduled visit.' },
+  { href: '/fire-extinguisher', label: 'Fire extinguisher service', accent: 'text-orange-300', border: 'hover:border-orange-400/40', description: 'Track customer assets with barcodes, record service outcomes, attach photos, and preserve service history.' },
+  { href: '/grease-trap', label: 'Grease trap service', accent: 'text-cyan-300', border: 'hover:border-cyan-400/40', description: 'Record pumped quantities, equipment condition, exceptions, disposal details, and recurring service dates.' },
+];
+---
+
+<BaseLayout
+  title="FieldLedger | Hood Cleaning Photos and Service Records"
+  description="Keep hood-cleaning visits, before-and-after photos, crew observations, and customer PDF service records together. Built for small kitchen exhaust cleaning teams."
+  faqs={faqs}
+>
+  <section class="relative overflow-hidden border-b border-carbon-800 px-4 py-24 sm:px-6 lg:py-32">
+    <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_10%,rgba(249,115,22,.16),transparent_35%),radial-gradient(circle_at_85%_30%,rgba(6,182,212,.10),transparent_30%)]"></div>
+    <div class="relative mx-auto max-w-6xl">
+      <div class="max-w-4xl">
+        <p class="font-mono text-xs font-bold uppercase tracking-[.22em] text-safety-orange">For kitchen exhaust cleaning crews</p>
+        <h1 class="mt-6 text-5xl font-black leading-[.95] tracking-[-.055em] text-white sm:text-7xl">The visit, the photos,<br />the customer record.</h1>
+        <p class="mt-7 max-w-2xl text-lg leading-relaxed text-slate-300">Keep before-and-after photos attached to the right kitchen exhaust system. Record what was cleaned, what was inaccessible, and what needs attention. Download a PDF the office can send to the customer.</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/app/?mode=demo&vertical=hood_cleaning" class="rounded-xl bg-orange-500 px-6 py-3.5 text-sm font-black text-white shadow-xl shadow-orange-500/25 transition-all hover:-translate-y-0.5 hover:bg-orange-400">Open the demo workspace →</a>
+          <a href="/hood-cleaning" class="rounded-xl border border-carbon-700 bg-carbon-900/80 px-6 py-3.5 text-sm font-bold text-slate-200 transition-colors hover:border-carbon-500">See the hood-cleaning workflow</a>
+        </div>
+        <p class="mt-5 text-sm text-slate-400"><a href="/fieldledger-sample-service-record.pdf" download="FieldLedger-Sample-Service-Record.pdf" class="underline underline-offset-4 hover:text-white">Download a sample customer PDF</a> · Fictional visit with illustrative photos. Open the downloaded file in your PDF reader.</p>
+      </div>
+      <div class="mt-14 grid max-w-4xl gap-3 sm:grid-cols-3">
+        {['Before-and-after evidence', 'Customer PDF records', '$49 / month · 3 technicians'].map((item) => (
+          <div class="rounded-xl border border-carbon-800 bg-carbon-900/70 px-4 py-3 text-sm font-bold text-slate-300">{item}</div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="solutions" class="px-4 py-20 sm:px-6">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-xs font-black uppercase tracking-[.18em] text-slate-500">Service workflows</p>
+      <h2 class="mt-3 max-w-3xl text-4xl font-black tracking-[-.04em] text-white">Start with your hood-cleaning crew.</h2>
+      <p class="mt-4 text-slate-400">Hood cleaning is our initial rollout. The existing extinguisher and grease-service configurations remain available for review.</p>
+      <div class="mt-10 grid gap-5 lg:grid-cols-3">
+        {verticals.map((vertical) => (
+          <a href={vertical.href} class={`group rounded-3xl border border-carbon-800 bg-carbon-900/65 p-7 transition-all hover:-translate-y-1 ${vertical.border}`}>
+            <p class={`text-xs font-black uppercase tracking-[.16em] ${vertical.accent}`}>FieldLedger for</p>
+            <h3 class="mt-3 text-2xl font-black text-white">{vertical.label}</h3>
+            <p class="mt-4 text-sm leading-relaxed text-slate-400">{vertical.description}</p>
+            <span class="mt-8 inline-block text-sm font-bold text-white">See the workflow <span class="transition-transform group-hover:translate-x-1">→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="border-y border-carbon-800 bg-carbon-900/30 px-4 py-20 sm:px-6">
+    <div class="mx-auto max-w-6xl">
+      <div class="grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+        <div><p class="text-xs font-black uppercase tracking-[.18em] text-safety-orange">How it works</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-white">From service stop to usable record.</h2></div>
+        <ol class="grid gap-4 sm:grid-cols-2">
+          {[
+            ['01', 'Bring your customer list', 'Add customer sites and exhaust systems, or preview and import a CSV.'],
+            ['02', 'Build the route', 'Add customers, sites, assets or systems, and scheduled work.'],
+            ['03', 'Record the visit', 'Technicians log outcomes, quantities, observations, exceptions, and photos.'],
+            ['04', 'Share the record', 'Completed work produces a durable service record that can be downloaded or printed.'],
+          ].map(([number, title, body]) => (
+            <li class="rounded-2xl border border-carbon-800 bg-carbon-950/70 p-5"><span class="font-mono text-xs text-slate-600">{number}</span><h3 class="mt-3 font-black text-white">{title}</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">{body}</p></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="px-4 py-20 sm:px-6">
+    <div class="mx-auto grid max-w-5xl gap-8 rounded-[2rem] border border-orange-500/30 bg-gradient-to-br from-carbon-900 to-carbon-950 p-8 sm:p-12 lg:grid-cols-[1fr_.8fr]">
+      <div>
+        <p class="text-xs font-black uppercase tracking-[.18em] text-orange-300">Simple launch plan</p>
+        <h2 class="mt-4 text-4xl font-black text-white">$49 <span class="text-base font-semibold text-slate-400">/ month</span></h2>
+        <p class="mt-4 max-w-lg text-sm leading-relaxed text-slate-400">Up to three field technicians. Create a workspace, verify your email, and begin a 14-day trial.</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="/app/?vertical=hood_cleaning" class="inline-flex rounded-xl bg-orange-500 px-6 py-3.5 text-sm font-black text-white hover:bg-orange-400 shadow-xl shadow-orange-500/20">
+            Start a hood-cleaning trial →
+          </a>
+          <a href="/app/?mode=demo&vertical=hood_cleaning" class="inline-flex rounded-xl border border-carbon-700 bg-carbon-800/80 px-6 py-3.5 text-sm font-bold text-slate-200 hover:bg-carbon-700">
+            Preview Demo Workspace
+          </a>
+        </div>
+      </div>
+      <ul class="space-y-3 text-sm text-slate-300">{['Unlimited customers and sites', 'Barcode and manual asset lookup', 'Photo-backed service observations', 'Company-configured recurrence', 'Downloadable service records', 'JSON data export'].map((feature) => <li class="flex gap-3"><span class="font-black text-orange-300">✓</span>{feature}</li>)}</ul>
+    </div>
+  </section>
+
+  <section id="faq" class="border-t border-carbon-800 px-4 py-20 sm:px-6">
+    <div class="mx-auto max-w-4xl"><p class="text-xs font-black uppercase tracking-[.18em] text-slate-500">FAQ</p><h2 class="mt-3 text-4xl font-black tracking-[-.04em] text-white">Clear boundaries before you buy.</h2><div class="mt-8 space-y-3">{faqs.map((faq) => <details class="rounded-2xl border border-carbon-800 bg-carbon-900/60 p-5"><summary class="cursor-pointer font-black text-white">{faq.question}</summary><p class="mt-3 text-sm leading-relaxed text-slate-400">{faq.answer}</p></details>)}</div></div>
+  </section>
+</BaseLayout>
+

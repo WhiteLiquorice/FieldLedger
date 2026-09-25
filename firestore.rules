@@ -1,0 +1,250 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function membershipPath(orgId) {
+      return /databases/$(database)/documents/orgs/$(orgId)/users/$(request.auth.uid);
+    }
+
+    function isMemberOf(orgId) {
+      return isSignedIn()
+        && get(/databases/$(database)/documents/orgs/$(orgId)).data.get('disabled', false) == false
+        && exists(membershipPath(orgId))
+        && get(membershipPath(orgId)).data.active == true
+        && get(membershipPath(orgId)).data.role in ['owner', 'manager', 'technician'];
+    }
+
+    function roleFor(orgId) {
+      return get(membershipPath(orgId)).data.role;
+    }
+
+    function isOwnerOrManager(orgId) {
+      return isMemberOf(orgId) && roleFor(orgId) in ['owner', 'manager'];
+    }
+
+    function isEntitled(orgId) {
+      let org = get(/databases/$(database)/documents/orgs/$(orgId)).data;
+      return org.get('subscriptionStatus', 'not_started') in ['active', 'past_due']
+        || (org.get('subscriptionStatus', 'not_started') in ['not_started', 'trialing']
+          && org.get('trialEndsAtMs', 0) > request.time.toMillis());
+    }
+
+    function canManageData(orgId) { return isOwnerOrManager(orgId) && isEntitled(orgId); }
+    function canReadJob(orgId, jobId) {
+      let job = get(/databases/$(database)/documents/orgs/$(orgId)/jobs/$(jobId)).data;
+      return isMemberOf(orgId) && (isOwnerOrManager(orgId) || job.get('assignedTechId', '') == request.auth.uid);
+    }
+    function canWriteEvidence(orgId, jobId) {
+      return canReadJob(orgId, jobId) && isEntitled(orgId)
+        && get(/databases/$(database)/documents/orgs/$(orgId)/jobs/$(jobId)).data.status in ['scheduled', 'dispatched', 'in_progress'];
+    }
+
+    function canAssignRole(orgId, userId) {
+      let targetPath = /databases/$(database)/documents/orgs/$(orgId)/users/$(userId);
+      return (roleFor(orgId) == 'owner'
+          && (userId != request.auth.uid
+            || (request.resource.data.role == 'owner' && request.resource.data.active == true)))
+        || (roleFor(orgId) == 'manager'
+          && request.resource.data.role in ['technician', 'client']
+          && (!exists(targetPath)
+            || get(targetPath).data.role in ['technician', 'client']));
+    }
+
+    function organizationVertical(orgId) {
+      return get(/databases/$(database)/documents/orgs/$(orgId)).data.vertical;
+    }
+
+    function hasTenantIdentity(orgId) {
+      return request.resource.data.orgId == orgId;
+    }
+
+    function keepsTenantIdentity() {
+      return !request.resource.data.diff(resource.data).affectedKeys()
+        .hasAny(['orgId', 'customerId', 'siteId', 'createdAt']);
+    }
+
+    match /orgs/{orgId} {
+      allow read: if isMemberOf(orgId);
+      allow create, delete: if false;
+      allow update: if isOwnerOrManager(orgId)
+        && request.resource.data.id == orgId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name', 'branding', 'updatedAt']);
+
+      match /users/{userId} {
+        allow read: if isMemberOf(orgId);
+        allow write: if false;
+      }
+
+      match /invitations/{invitationId} {
+        allow read: if isOwnerOrManager(orgId);
+        allow write: if false;
+      }
+
+      match /workflow_configs/{verticalId} {
+        allow read: if isMemberOf(orgId) && verticalId == organizationVertical(orgId);
+        allow create, update: if false;
+        allow delete: if false;
+      }
+
+      match /customers/{customerId} {
+        allow read: if isMemberOf(orgId);
+        allow create: if canManageData(orgId)
+          && hasTenantIdentity(orgId)
+          && request.resource.data.id == customerId
+          && request.resource.data.businessName is string;
+        allow update: if false;
+        allow delete: if false;
+
+        match /sites/{siteId} {
+          allow read: if isMemberOf(orgId);
+          allow create: if canManageData(orgId)
+            && hasTenantIdentity(orgId)
+            && request.resource.data.id == siteId
+            && request.resource.data.customerId == customerId
+            && request.resource.data.siteName is string;
+          allow update: if false;
+          allow delete: if false;
+
+          match /extinguishers/{assetId} {
+            allow read: if isMemberOf(orgId) && organizationVertical(orgId) == 'extinguisher';
+            allow create: if canManageData(orgId)
+              && organizationVertical(orgId) == 'extinguisher'
+              && hasTenantIdentity(orgId)
+              && request.resource.data.id == assetId
+              && request.resource.data.customerId == customerId
+              && request.resource.data.siteId == siteId
+              && request.resource.data.qrCode is string
+              && request.resource.data.serialNumber is string;
+            allow update: if false;
+            allow delete: if false;
+          }
+
+          match /grease_traps/{assetId} {
+            allow read: if isMemberOf(orgId) && organizationVertical(orgId) == 'grease_trap';
+            allow create: if canManageData(orgId)
+              && organizationVertical(orgId) == 'grease_trap'
+              && hasTenantIdentity(orgId)
+              && request.resource.data.id == assetId
+              && request.resource.data.customerId == customerId
+              && request.resource.data.siteId == siteId
+              && request.resource.data.capacityGallons is number;
+            allow update: if false;
+            allow delete: if false;
+          }
+
+          match /hood_systems/{assetId} {
+            allow read: if isMemberOf(orgId) && organizationVertical(orgId) == 'hood_cleaning';
+            allow create: if canManageData(orgId)
+              && organizationVertical(orgId) == 'hood_cleaning'
+              && hasTenantIdentity(orgId)
+              && request.resource.data.id == assetId
+              && request.resource.data.customerId == customerId
+              && request.resource.data.siteId == siteId
+              && request.resource.data.systemName is string;
+            allow update: if false;
+            allow delete: if false;
+          }
+        }
+      }
+
+      match /jobs/{jobId} {
+        allow read: if isMemberOf(orgId)
+          && resource.data.vertical == organizationVertical(orgId)
+          && (isOwnerOrManager(orgId) || resource.data.assignedTechId == request.auth.uid);
+        // Job creation and status transitions are strictly server-authoritative
+        // to enforce version concurrency, active tech assignment, and audit trails.
+        allow create, update: if false;
+        allow delete: if false;
+
+        match /events/{eventId} {
+          allow read: if canReadJob(orgId, jobId);
+          allow write: if false;
+        }
+
+        match /evidence/{evidenceId} {
+          allow read: if canReadJob(orgId, jobId);
+          allow create: if canWriteEvidence(orgId, jobId)
+            && request.resource.data.id == evidenceId
+            && request.resource.data.orgId == orgId
+            && request.resource.data.jobId == jobId
+            && request.resource.data.assetId is string
+            && request.resource.data.storagePath is string
+            && request.resource.data.uploadedBy == request.auth.uid
+            && request.resource.data.storagePath.matches('orgs/' + orgId + '/jobs/' + jobId + '/assets/' + request.resource.data.assetId + '/' + evidenceId + '-[^/]+')
+            && request.resource.data.mimeType in ['image/jpeg', 'image/png', 'image/webp']
+            && request.resource.data.sizeBytes is number
+            && request.resource.data.sizeBytes > 0
+            && request.resource.data.sizeBytes < 20971520;
+          allow update: if false;
+          allow delete: if isOwnerOrManager(orgId) && canWriteEvidence(orgId, jobId);
+        }
+      }
+
+      match /deficiencies/{deficiencyId} {
+        allow read: if isMemberOf(orgId);
+        allow create: if isMemberOf(orgId)
+          && hasTenantIdentity(orgId)
+          && request.resource.data.id == deficiencyId
+          && request.resource.data.status in ['open', 'quoted', 'scheduled_repair', 'resolved'];
+        allow update: if isMemberOf(orgId)
+          && keepsTenantIdentity()
+          && request.resource.data.status in ['open', 'quoted', 'scheduled_repair', 'resolved'];
+        allow delete: if isOwnerOrManager(orgId);
+      }
+
+      match /reports/{reportId} {
+        allow read: if isMemberOf(orgId) && (isOwnerOrManager(orgId) || resource.data.assignedTechId == request.auth.uid);
+        allow write: if false;
+      }
+
+      match /recurring_queue/{queueId} {
+        allow read: if isMemberOf(orgId);
+        allow write: if false;
+      }
+
+      match /qr_batches/{batchId} {
+        allow read: if isMemberOf(orgId);
+        allow write: if false;
+      }
+
+      match /available_qr_tags/{tagId} {
+        allow read: if isMemberOf(orgId);
+        allow write: if false;
+      }
+    }
+
+    match /invitation_tokens/{tokenHash} {
+      allow read, write: if false;
+    }
+
+    // Collection-group subscriptions must prove tenant identity from the queried documents.
+    match /{parent=**}/sites/{siteId} {
+      allow read: if isMemberOf(resource.data.orgId);
+    }
+    match /{parent=**}/hood_systems/{assetId} {
+      allow read: if isMemberOf(resource.data.orgId) && organizationVertical(resource.data.orgId) == 'hood_cleaning';
+    }
+    match /{parent=**}/extinguishers/{assetId} {
+      allow read: if isMemberOf(resource.data.orgId) && organizationVertical(resource.data.orgId) == 'extinguisher';
+    }
+    match /{parent=**}/grease_traps/{assetId} {
+      allow read: if isMemberOf(resource.data.orgId) && organizationVertical(resource.data.orgId) == 'grease_trap';
+    }
+
+    match /account_workspaces/{userId} {
+      allow read: if request.auth != null && request.auth.uid == userId;
+      allow write: if false;
+    }
+
+    match /org_slugs/{slug} {
+      allow read, write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

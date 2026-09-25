@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { Nfpa10HydroCalculator } from '../../components/tools/Nfpa10HydroCalculator';
+
+const title = "NFPA 10 Hydrostatic Test & 6-Year Teardown Calculator | FieldLedger";
+const description = "Free interactive calculator for NFPA 10 hydrostatic pressure test intervals (5-year / 12-year) and 6-year internal teardown maintenance dates.";
+const canonical = "https://fieldledger.bridgewayapps.com/tools/nfpa-10-hydro-calculator";
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'NFPA 10 Hydrostatic Test Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'All',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-4xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/tools" class="hover:text-white transition-colors">Tools</a>
+      <span>/</span>
+      <span class="text-orange-400 font-semibold">NFPA 10 Hydro Calculator</span>
+    </nav>
+
+    <!-- Calculator Component -->
+    <Nfpa10HydroCalculator client:load />
+
+    <!-- Educational Context Section for SEO/GEO -->
+    <div class="mt-16 rounded-3xl border border-carbon-700 bg-carbon-900/60 p-8 sm:p-10 space-y-6 text-left">
+      <h3 class="text-2xl font-bold text-white">How NFPA 10 Maintenance Intervals Work</h3>
+      <div class="space-y-4 text-xs sm:text-sm text-slate-300 leading-relaxed">
+        <p>
+          Portable fire extinguishers require two distinct milestone services over their operational lifecycle:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
+          <div class="p-4 rounded-xl bg-carbon-950 border border-carbon-800">
+            <h4 class="font-bold text-white text-sm mb-1">1. 6-Year Internal Maintenance (§ 7.3.3)</h4>
+            <p class="text-slate-400">
+              Required every 6 years from the manufacturing date for stored-pressure dry chemical and clean agent extinguishers. The cylinder is emptied, inspected internally for corrosion, re-pressurized, and fitted with a verification of service collar.
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-carbon-950 border border-carbon-800">
+            <h4 class="font-bold text-white text-sm mb-1">2. Hydrostatic Retest (§ 8.3)</h4>
+            <p class="text-slate-400">
+              Required every 5 or 12 years (depending on shell type). The extinguisher cylinder undergoes proof-pressure water jacket testing to ensure shell structural integrity.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

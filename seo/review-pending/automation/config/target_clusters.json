@@ -1,0 +1,63 @@
+{
+  "clusters": [
+    {
+      "name": "Fire Extinguisher Inspection Software",
+      "vertical": "fire-extinguisher",
+      "priority": "P1",
+      "seed_keywords": [
+        "fire extinguisher inspection software",
+        "nfpa 10 inspection app",
+        "fire extinguisher barcode tracking system",
+        "digital fire inspection tags",
+        "portable fire extinguisher software",
+        "fire protection contractor software",
+        "monthly fire extinguisher inspection checklist app",
+        "6 year fire extinguisher inspection tracking",
+        "hydrostatic testing fire extinguisher software"
+      ]
+    },
+    {
+      "name": "Commercial Kitchen Hood Cleaning Software",
+      "vertical": "hood-cleaning",
+      "priority": "P1",
+      "seed_keywords": [
+        "hood cleaning software",
+        "kitchen exhaust cleaning app",
+        "nfpa 96 hood inspection form",
+        "restaurant exhaust hood photo audit software",
+        "commercial kitchen duct cleaning app",
+        "grease hood inspection checklist",
+        "ikeca compliant hood cleaning software",
+        "restaurant fire prevention hood certificate software"
+      ]
+    },
+    {
+      "name": "Grease Trap & Interceptor FOG Software",
+      "vertical": "grease-trap",
+      "priority": "P1",
+      "seed_keywords": [
+        "grease trap software",
+        "grease interceptor pumping app",
+        "fog compliance software",
+        "grease trap manifest generator",
+        "25 percent rule grease calculator",
+        "commercial grease pumping log software",
+        "wastewater fog reporting tool",
+        "restaurant grease trap cleaning records"
+      ]
+    },
+    {
+      "name": "Software Comparisons & Alternatives",
+      "vertical": "comparison",
+      "priority": "P2",
+      "seed_keywords": [
+        "fieldledger vs joyfill",
+        "fieldledger vs inspect point",
+        "fieldledger vs servicetitan for compliance",
+        "best software for fire extinguisher contractors",
+        "top hood cleaning software alternatives",
+        "best apps for grease pumping companies"
+      ]
+    }
+  ]
+}

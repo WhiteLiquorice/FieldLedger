@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Service Documentation & Contractor Responsibilities | FieldLedger"
+  description="Record service observations, photos and company-configured follow-up dates while preserving contractor responsibility for applicable requirements."
+>
+  <div class="mx-auto max-w-4xl py-16 px-4 sm:px-6 lg:px-8">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-safety-cyan/10 border border-safety-cyan/30 text-safety-cyan font-mono text-xs font-semibold mb-4">
+      SERVICE DOCUMENTATION
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">Service Records & Contractor Responsibilities</h1>
+    <p class="text-sm text-slate-400 mt-2">FieldLedger organizes operator-entered records. It does not certify work or determine which rules apply to a site.</p>
+
+    <div class="mt-8 space-y-8 text-sm text-slate-300 leading-relaxed border-t border-carbon-800 pt-6">
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">1. Portable Fire Extinguishers</h2>
+        <p>
+          The extinguisher workflow can record equipment identity, condition and company-configured service dates:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-slate-400">
+          <li>Equipment details and company-configured next service dates.</li>
+          <li>Operating pressure gauge condition, physical damage, and tamper seal verification logging.</li>
+          <li>Location matching and missing asset deficiency alerts.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">2. Commercial Kitchen Exhaust Systems</h2>
+        <p>
+          The hood-cleaning workflow keeps before-and-after photographs and technician observations with the visit:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-slate-400">
+          <li>Hood canopy, horizontal ductwork, vertical riser, and rooftop exhaust fan photo evidence.</li>
+          <li>Access panel inspection tagging and inaccessible area documentation.</li>
+          <li>Downloadable customer service record; acceptance by an inspector is not guaranteed.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3">
+        <h2 class="text-xl font-bold text-white">3. Commercial Grease Interceptors</h2>
+        <p>
+          The grease-service configuration supports recording service quantities and observations selected by the contractor:
+        </p>
+        <ul class="list-disc pl-5 space-y-1 text-slate-400">
+          <li>Pumped quantities and observed equipment condition.</li>
+          <li>Operator-entered disposal details and notes.</li>
+        </ul>
+      </section>
+
+      <section class="space-y-3 pt-6 border-t border-carbon-800">
+        <div class="rounded-xl border border-carbon-800 bg-carbon-900/60 p-4 text-xs text-slate-400">
+          <strong class="text-white block mb-1">Notice of Independent Contractor Responsibility:</strong>
+          FieldLedger records technician observations and equipment metadata. FieldLedger does not independently inspect, test, certify, or license physical equipment or premises, and does not guarantee regulatory acceptance. Service contractors remain solely responsible for ensuring that all work complies with local Authority Having Jurisdiction (AHJ) rules, NFPA codes, EPA rules, and professional trade standards.
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

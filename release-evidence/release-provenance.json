@@ -1,0 +1,23 @@
+{
+  "sourceHash": "f29887aa5c30f8a6fbe82856d79b8e2af08da0eaf501f1cb2807e25146372c67",
+  "verificationRun": "e5a652f7-0df0-498d-845a-99a1283ce2c6",
+  "appBuild": {
+    "buildId": "aea43365ca63a27d0a61",
+    "firebaseProjectId": "fieldledger-stg",
+    "dataMode": "firebase",
+    "firebaseConfigured": true,
+    "appCheckConfigured": true,
+    "emulatorsEnabled": false
+  },
+  "archive": "A:\\Projects\\SaaS\\FieldLedger\\output\\releases\\FieldLedger-f29887aa5c30-20260913T213700Z.zip",
+  "archiveSha256": "47c03b178cd7109bb91af576cabb03aeadcefced2011e6ace092c8a8b008987c",
+  "files": 324,
+  "rulesAndIndexHashes": {
+    "firestore.rules": "c86ef126c1c12317966f5aee07ec05f0378e9946d133697f125e2d177b83b39e",
+    "storage.rules": "d2ab1069946dada8b0e737abda6c6c6e78d7ba65c16543af7dc9629045ef76a5",
+    "firestore.indexes.json": "5b11795801407b2753fa63f9af58dfa2e461ad29f5d4bc2f2b243b732269445a"
+  },
+  "gitCommit": null,
+  "deployedRevision": null,
+  "note": "Verified local source/build snapshot. Environment credentials are excluded. Not a deployed rollback rehearsal."
+}

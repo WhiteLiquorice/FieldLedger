@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { getAllCityTradeCombinations, type CityTradeInfo } from '../../../data/cityGeoData';
+
+export function getStaticPaths() {
+  const combinations = getAllCityTradeCombinations();
+  return combinations.map((combo) => ({
+    params: {
+      city: combo.citySlug,
+      trade: combo.trade,
+    },
+    props: { geoData: combo },
+  }));
+}
+
+const { geoData } = Astro.props as { geoData: CityTradeInfo };
+
+const title = geoData.metaTitle;
+const description = geoData.metaDescription;
+const canonical = `https://fieldledger.bridgewayapps.com/geo/${geoData.citySlug}/${geoData.trade}`;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: geoData.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://fieldledger.bridgewayapps.com' },
+    { '@type': 'ListItem', position: 2, name: 'Local Service Directory', item: 'https://fieldledger.bridgewayapps.com/geo' },
+    { '@type': 'ListItem', position: 3, name: `${geoData.cityName}, ${geoData.stateAbbr} ${geoData.tradeTitle}`, item: canonical },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto text-left">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/geo" class="hover:text-white transition-colors">Local Directory</a>
+      <span>/</span>
+      <span class="text-orange-400 font-semibold">{geoData.cityName}, {geoData.stateAbbr}</span>
+    </nav>
+
+    <!-- Header Hero -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12">
+      <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl pointer-events-none"></div>
+
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>📍 {geoData.cityName}, {geoData.stateAbbr} Local Contractor Operations</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        {geoData.cityName}, {geoData.stateAbbr} {geoData.tradeTitle}
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-8">
+        Built for commercial service contractors operating in <span class="text-white font-bold">{geoData.cityName}</span> and surrounding <span class="text-white font-bold">{geoData.stateName}</span> markets. Streamline inspections, satisfy <span class="text-orange-400 font-semibold">{geoData.localAhjName}</span> compliance requirements, and eliminate per-barcode scan fees.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href={`/app?city=${geoData.citySlug}&trade=${geoData.trade}&plan=pro`}
+          class="rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-6 py-3.5 text-sm transition-all shadow-lg shadow-orange-500/25 flex items-center gap-2"
+        >
+          <span>Launch {geoData.cityName} 14-Day Free Trial →</span>
+        </a>
+        <a
+          href="/compare/buildingreports-alternative"
+          class="rounded-xl border border-carbon-700 hover:border-carbon-600 bg-carbon-800/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all"
+        >
+          <span>Compare vs Legacy Software</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Problems vs Solution Split Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+      <!-- Pain Points -->
+      <div class="rounded-3xl border border-red-500/20 bg-carbon-900/60 p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 border border-red-500/30 grid place-items-center font-bold text-lg">⚠️</span>
+          <h3 class="font-bold text-lg text-white">Common Route Headaches in {geoData.cityName}</h3>
+        </div>
+        <ul class="space-y-3.5 text-xs sm:text-sm text-slate-300">
+          {geoData.keyProblems.map((prob) => (
+            <li class="flex items-start gap-2.5">
+              <span class="text-red-400 font-bold mt-0.5">✕</span>
+              <span>{prob}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- FieldLedger Solution -->
+      <div class="rounded-3xl border border-emerald-500/20 bg-carbon-900/60 p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 grid place-items-center font-bold text-lg">✓</span>
+          <h3 class="font-bold text-lg text-white">How FieldLedger Solves It in {geoData.cityName}</h3>
+        </div>
+        <ul class="space-y-3.5 text-xs sm:text-sm text-slate-300">
+          {geoData.localFeatures.map((feat) => (
+            <li class="flex items-start gap-2.5">
+              <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+              <span>{feat}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Local AHJ & Code Compliance Card -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/60 p-8 sm:p-10 mb-16">
+      <h3 class="text-xl font-bold text-white mb-4">
+        {geoData.cityName} Authority & Regulatory Standards
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6">
+        All certificates and service logs generated on FieldLedger conform to the local standards enforced by <strong class="text-white">{geoData.localAhjName}</strong> and <strong class="text-white">{geoData.localCodeReference}</strong>.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-300">
+        <div class="p-4 rounded-xl bg-carbon-950 border border-carbon-800">
+          <span class="text-slate-400 uppercase text-[10px] font-bold block mb-1">Local AHJ</span>
+          <span class="font-bold text-white text-xs">{geoData.localAhjName}</span>
+        </div>
+        <div class="p-4 rounded-xl bg-carbon-950 border border-carbon-800">
+          <span class="text-slate-400 uppercase text-[10px] font-bold block mb-1">Inspection Standard</span>
+          <span class="font-bold text-orange-400 text-xs">{geoData.localCodeReference}</span>
+        </div>
+        <div class="p-4 rounded-xl bg-carbon-950 border border-carbon-800">
+          <span class="text-slate-400 uppercase text-[10px] font-bold block mb-1">PWA Offline Mode</span>
+          <span class="font-bold text-emerald-400 text-xs">100% Offline Basement Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- City FAQs -->
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold text-white mb-8">{geoData.cityName} Contractor FAQs</h3>
+      <div class="space-y-4">
+        {geoData.faqs.map((faq) => (
+          <div class="rounded-2xl border border-carbon-700 bg-carbon-900/60 p-6">
+            <h4 class="font-bold text-sm sm:text-base text-white mb-2">{faq.question}</h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bottom CTA Banner -->
+    <div class="rounded-3xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-carbon-900 to-carbon-900 p-8 sm:p-12 text-center relative overflow-hidden">
+      <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">
+        Start Faster Inspections in {geoData.cityName} Today
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-8">
+        Join leading service contractors across {geoData.stateName}. Start your 14-day free trial on FieldLedger with pre-configured {geoData.cityName} compliance templates.
+      </p>
+      <a
+        href={`/app?city=${geoData.citySlug}&trade=${geoData.trade}&plan=pro`}
+        class="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/30 transition-all"
+      >
+        <span>Launch {geoData.cityName} 14-Day Free Trial →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

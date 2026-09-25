@@ -1,0 +1,34 @@
+{
+  "brand_name": "FieldLedger",
+  "parent_brand": "Bridgeway Suite",
+  "domain": "fieldledger.bridgewayapps.com",
+  "tone": "Authoritative, technical, compliance-focused, field-tested, and practitioner-first. Avoid generic marketing fluff or robotic transitions.",
+  "target_audiences": [
+    {
+      "persona": "Fire Protection Contractor",
+      "pain_points": ["Paper hole-punch tag tracking", "6-year tear down tracking", "Lost records", "Slow technician speed"],
+      "standards": ["NFPA 10", "UL Listed", "State Fire Marshal regulations"]
+    },
+    {
+      "persona": "Commercial Kitchen Exhaust Cleaner",
+      "pain_points": ["Insurance liability for fires", "Missing duct access panels", "Customer disputes over cleaning completeness"],
+      "standards": ["NFPA 96", "IKECA standards", "Health Department codes"]
+    },
+    {
+      "persona": "Grease Trap & Environmental Pumper",
+      "pain_points": ["25% rule calculations", "City wastewater sewer overflow fines", "Disposal manifest paperwork"],
+      "standards": ["Municipal FOG ordinances", "Clean Water Act", "EPA 40 CFR Part 403"]
+    },
+    {
+      "persona": "Facility / Property Manager",
+      "pain_points": ["Unorganized vendor records", "AHJ audit panic", "Multi-site visibility"],
+      "standards": ["OSHA 1910.157", "Life Safety Code NFPA 101"]
+    }
+  ],
+  "disclaimer": "FieldLedger records operator-entered work and observations. It does not independently certify legal or regulatory compliance.",
+  "pricing": {
+    "starter": "$49/month (Up to 3 technicians)",
+    "pro": "$149/month (Up to 15 technicians, all 3 verticals, customer portal)",
+    "enterprise": "$399/month (Unlimited technicians, multi-branch, API)"
+  }
+}

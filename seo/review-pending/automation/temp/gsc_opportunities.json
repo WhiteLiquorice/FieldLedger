@@ -1,0 +1,42 @@
+[
+  {
+    "keyword": "fire extinguisher inspection software",
+    "cluster": "Fire Extinguisher Inspection Software",
+    "vertical": "fire-extinguisher",
+    "priority": "P1",
+    "source": "seed_cluster_matrix",
+    "opportunity_score": 85
+  },
+  {
+    "keyword": "nfpa 10 inspection app",
+    "cluster": "Fire Extinguisher Inspection Software",
+    "vertical": "fire-extinguisher",
+    "priority": "P1",
+    "source": "seed_cluster_matrix",
+    "opportunity_score": 85
+  },
+  {
+    "keyword": "fire extinguisher barcode tracking system",
+    "cluster": "Fire Extinguisher Inspection Software",
+    "vertical": "fire-extinguisher",
+    "priority": "P1",
+    "source": "seed_cluster_matrix",
+    "opportunity_score": 85
+  },
+  {
+    "keyword": "digital fire inspection tags",
+    "cluster": "Fire Extinguisher Inspection Software",
+    "vertical": "fire-extinguisher",
+    "priority": "P1",
+    "source": "seed_cluster_matrix",
+    "opportunity_score": 85
+  },
+  {
+    "keyword": "portable fire extinguisher software",
+    "cluster": "Fire Extinguisher Inspection Software",
+    "vertical": "fire-extinguisher",
+    "priority": "P1",
+    "source": "seed_cluster_matrix",
+    "opportunity_score": 85
+  }
+]

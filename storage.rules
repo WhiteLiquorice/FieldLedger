@@ -1,0 +1,54 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isMemberOf(orgId) {
+      return request.auth != null
+        && firestore.exists(/databases/(default)/documents/orgs/$(orgId))
+        && firestore.get(/databases/(default)/documents/orgs/$(orgId)).data.get('disabled', false) == false
+        && firestore.exists(/databases/(default)/documents/orgs/$(orgId)/users/$(request.auth.uid))
+        && firestore.get(/databases/(default)/documents/orgs/$(orgId)/users/$(request.auth.uid)).data.active == true
+        && firestore.get(/databases/(default)/documents/orgs/$(orgId)/users/$(request.auth.uid)).data.role in ['owner', 'manager', 'technician'];
+    }
+
+    function isAcceptedUpload() {
+      return request.resource.size > 0 && request.resource.size < 20 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)');
+    }
+
+    function isOwnerOrManager(orgId) {
+      return isMemberOf(orgId)
+        && firestore.get(/databases/(default)/documents/orgs/$(orgId)/users/$(request.auth.uid)).data.role in ['owner', 'manager'];
+    }
+
+    function isEntitled(orgId) {
+      let org = firestore.get(/databases/(default)/documents/orgs/$(orgId)).data;
+      return org.get('subscriptionStatus', 'not_started') in ['active', 'past_due']
+        || (org.get('subscriptionStatus', 'not_started') in ['not_started', 'trialing'] && org.get('trialEndsAtMs', 0) > request.time.toMillis());
+    }
+
+    // Narrowed durable evidence upload path
+    match /orgs/{orgId}/jobs/{jobId}/assets/{assetId}/{evidenceFile} {
+      function job() { return firestore.get(/databases/(default)/documents/orgs/$(orgId)/jobs/$(jobId)).data; }
+      function authorized() { return isMemberOf(orgId) && (isOwnerOrManager(orgId) || job().assignedTechId == request.auth.uid); }
+      function editable() { return job().status in ['scheduled', 'dispatched', 'in_progress']; }
+      function assetExists() {
+        let group = firestore.get(/databases/(default)/documents/orgs/$(orgId)).data.vertical == 'hood_cleaning' ? 'hood_systems' : firestore.get(/databases/(default)/documents/orgs/$(orgId)).data.vertical == 'extinguisher' ? 'extinguishers' : 'grease_traps';
+        return firestore.exists(/databases/(default)/documents/orgs/$(orgId)/customers/$(job().customerId)/sites/$(job().siteId)/$(group)/$(assetId));
+      }
+      allow read: if authorized();
+      allow create: if authorized() && isEntitled(orgId) && editable() && assetExists() && isAcceptedUpload();
+      allow update: if false;
+      allow delete: if isOwnerOrManager(orgId) && editable();
+    }
+
+    // Reports or exports stored by server-authoritative jobs
+    match /orgs/{orgId}/reports/{reportFile} {
+      allow read: if isMemberOf(orgId);
+      allow write: if false;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { STATE_COMPLIANCE_DATA, type StateComplianceInfo } from '../../data/stateComplianceData';
+
+export function getStaticPaths() {
+  return Object.values(STATE_COMPLIANCE_DATA).map((state) => ({
+    params: { state: state.slug },
+    props: { stateData: state },
+  }));
+}
+
+const { stateData } = Astro.props as { stateData: StateComplianceInfo };
+
+const title = `${stateData.stateName} Fire Extinguisher & Hood Inspection Compliance Guide | FieldLedger`;
+const description = `Complete contractor guide to ${stateData.stateName} Fire Marshal inspection tagging rules, NFPA 10 licensing, NFPA 96 kitchen hood requirements, and municipal 25% grease trap regulations.`;
+const canonical = `https://fieldledger.bridgewayapps.com/compliance/${stateData.slug}`;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: stateData.faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://fieldledger.bridgewayapps.com' },
+    { '@type': 'ListItem', position: 2, name: 'State Compliance Directory', item: 'https://fieldledger.bridgewayapps.com/compliance' },
+    { '@type': 'ListItem', position: 3, name: `${stateData.stateName} Compliance`, item: canonical },
+  ],
+};
+---
+
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <Navbar />
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <main class="relative z-10 pt-28 pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-xs text-slate-400 mb-8">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/compliance" class="hover:text-white transition-colors">State Compliance</a>
+      <span>/</span>
+      <span class="text-orange-400 font-semibold">{stateData.stateName}</span>
+    </nav>
+
+    <!-- Header Hero -->
+    <div class="rounded-3xl border border-carbon-700 bg-carbon-900/90 p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden mb-12">
+      <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-orange-500/10 blur-3xl pointer-events-none"></div>
+
+      <div class="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-400 mb-6">
+        <span>📍 {stateData.stateName} ({stateData.stateAbbr}) Compliance Directory</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white mb-6">
+        {stateData.stateName} Life Safety & Exhaust Compliance Guide
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-3xl leading-relaxed mb-8">
+        Contractor guidelines for the <span class="text-white font-bold">{stateData.fireMarshalAuthority}</span>, state administrative code <span class="text-orange-400 font-mono text-sm font-semibold">{stateData.administrativeCode}</span>, and NFPA 10 / NFPA 96 / municipal FOG requirements.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href={`/app?state=${stateData.slug}&plan=pro`}
+          class="rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-6 py-3.5 text-sm transition-all shadow-lg shadow-orange-500/25 flex items-center gap-2"
+        >
+          <span>Start {stateData.stateName} Free Trial →</span>
+        </a>
+        <a
+          href="/tools"
+          class="rounded-xl border border-carbon-700 hover:border-carbon-600 bg-carbon-800/80 px-6 py-3.5 text-sm font-semibold text-slate-200 transition-all"
+        >
+          <span>Explore Free Compliance Tools</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 3 Core Compliance Pillars -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <!-- Card 1: Extinguishers -->
+      <div class="rounded-2xl border border-carbon-700 bg-carbon-900/60 p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 grid place-items-center font-bold text-lg">🧯</span>
+            <div>
+              <h2 class="font-bold text-white text-base">NFPA 10 Fire Extinguishers</h2>
+              <span class="text-xs text-orange-400 font-medium">{stateData.taggingRules.digitalTagStatus}</span>
+            </div>
+          </div>
+          <ul class="space-y-2.5 text-xs text-slate-300 mt-4">
+            {stateData.taggingRules.specificRules.map((rule) => (
+              <li class="flex items-start gap-2">
+                <span class="text-orange-400 font-bold">✓</span>
+                <span>{rule}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="mt-6 pt-4 border-t border-carbon-800 text-[11px] text-slate-400">
+          <strong>Enforcing Code:</strong> {stateData.administrativeCode}
+        </div>
+      </div>
+
+      <!-- Card 2: Hood Cleaning -->
+      <div class="rounded-2xl border border-carbon-700 bg-carbon-900/60 p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20 grid place-items-center font-bold text-lg">💨</span>
+            <div>
+              <h2 class="font-bold text-white text-base">NFPA 96 Hood Cleaning</h2>
+              <span class="text-xs text-violet-400 font-medium">{stateData.hoodCleaningRules.frequencyReference}</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            {stateData.hoodCleaningRules.details}
+          </p>
+          <div class="rounded-xl bg-carbon-950 p-3 border border-carbon-800 text-xs text-slate-300">
+            <p class="font-semibold text-white mb-1">Photo Proof Mandate:</p>
+            <p>{stateData.hoodCleaningRules.photoProofMandate ? 'Mandatory before/after photographic documentation for AHJ sign-off.' : 'Recommended for liability protection.'}</p>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-carbon-800 text-[11px] text-slate-400">
+          <strong>Authority:</strong> {stateData.hoodCleaningRules.authority}
+        </div>
+      </div>
+
+      <!-- Card 3: Grease Traps -->
+      <div class="rounded-2xl border border-carbon-700 bg-carbon-900/60 p-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 grid place-items-center font-bold text-lg">🛢️</span>
+            <div>
+              <h2 class="font-bold text-white text-base">25% FOG Grease Traps</h2>
+              <span class="text-xs text-cyan-400 font-medium">Limit: {stateData.fogGreaseRules.dischargeLimitMgL} mg/L</span>
+            </div>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed mb-4">
+            {stateData.fogGreaseRules.details}
+          </p>
+          <div class="rounded-xl bg-carbon-950 p-3 border border-carbon-800 text-xs text-slate-300">
+            <p class="font-semibold text-white mb-1">Manifest Retention:</p>
+            <p>{stateData.fogGreaseRules.manifestRetentionYears} Years on-site for municipal health and sewer audits.</p>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-carbon-800 text-[11px] text-slate-400">
+          <strong>Regulator:</strong> {stateData.fogGreaseRules.authority}
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Cities in State -->
+    <div class="rounded-2xl border border-carbon-700 bg-carbon-900/40 p-8 mb-16">
+      <h3 class="text-lg font-bold text-white mb-4">Local Jurisdictions in {stateData.stateName}</h3>
+      <p class="text-xs text-slate-400 mb-6">
+        FieldLedger supports digital inspection reporting and local AHJ export formats for municipal fire prevention bureaus in:
+      </p>
+      <div class="flex flex-wrap gap-2.5">
+        {stateData.topCities.map((city) => (
+          <span class="rounded-xl border border-carbon-700 bg-carbon-800/60 px-3.5 py-1.5 text-xs text-slate-300">
+            📍 {city}, {stateData.stateAbbr}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- State FAQs -->
+    <div class="mb-16">
+      <h3 class="text-2xl font-bold text-white mb-8">{stateData.stateName} Compliance FAQs</h3>
+      <div class="space-y-4">
+        {stateData.faqs.map((faq) => (
+          <div class="rounded-2xl border border-carbon-700 bg-carbon-900/60 p-6">
+            <h4 class="font-bold text-sm sm:text-base text-white mb-2">{faq.question}</h4>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">{faq.answer}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Bottom CTA Banner -->
+    <div class="rounded-3xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-carbon-900 to-carbon-900 p-8 sm:p-12 text-center relative overflow-hidden">
+      <h3 class="text-2xl sm:text-3xl font-black text-white mb-3">
+        Automate Your {stateData.stateName} Inspections Today
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mb-8">
+        Eliminate paper clipboards and per-scan fees. Start your 14-day free trial on FieldLedger with pre-configured {stateData.stateName} inspection standards.
+      </p>
+      <a
+        href={`/app?state=${stateData.slug}&plan=pro`}
+        class="inline-flex items-center gap-2 rounded-xl bg-orange-500 hover:bg-orange-400 text-white font-bold px-8 py-4 text-sm shadow-xl shadow-orange-500/30 transition-all"
+      >
+        <span>Launch {stateData.stateName} 14-Day Free Trial →</span>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>

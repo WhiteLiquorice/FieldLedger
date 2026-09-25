@@ -1,0 +1,31 @@
+# Dependency directories
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+**/dist/
+functions/lib/
+/lib/
+apps/website/.astro/
+seo/temp/
+output/releases/
+.firebase/
+.local/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs and crash dumps
+*.log
+hs_err_*.log
+replay_*.log
+firebase-debug*.log
+firestore-debug*.log
+
+# OS & editor artifacts
+.DS_Store
+Thumbs.db

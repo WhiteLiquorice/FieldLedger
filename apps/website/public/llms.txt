@@ -1,0 +1,22 @@
+# FieldLedger
+
+FieldLedger is one field-service web application configured during onboarding for a hood-cleaning, fire-extinguisher-service, or grease-trap-service business.
+
+## Current product
+
+- Customer, site, asset, and scheduled-work records
+- Technician-entered outcomes, observations, quantities, exceptions, and photos
+- Company-configured recurring service dates
+- Persistent browser cache after initial sign-in and synchronization
+- Downloadable customer service records and JSON data export
+- Starter plan: $49 per month for up to three field technicians, with a 14-day trial
+
+## Important boundary
+
+FieldLedger records operator-entered work and observations. It does not independently certify legal or regulatory compliance. Contractors remain responsible for qualifications, procedures, applicable requirements, and professional judgment.
+
+## Product pages
+
+- https://fieldledger.bridgewayapps.com/hood-cleaning
+- https://fieldledger.bridgewayapps.com/fire-extinguisher
+- https://fieldledger.bridgewayapps.com/grease-trap

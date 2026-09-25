@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-09-05T05:44:28.805Z",
+  "exitCode": 1,
+  "report": {
+    "message": "request to https://registry.npmjs.org/-/npm/v1/security/audits/quick failed, reason: ",
+    "error": {
+      "summary": "",
+      "detail": ""
+    }
+  }
+}
